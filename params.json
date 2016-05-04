@@ -1,6 +1,0 @@
-{
-  "name": "Cucumber/C++",
-  "tagline": "Gherkin editor and C++ implementation of Gherkin.",
-  "body": "### Welcome to Cucumber/C++\r\nCucumber/C++ is an editor of Cucumber/Gherkin, a language of specification by example in the world of BDD. It could generate C++ skeleton implementation from Gherkin.\r\n\r\n### Prerequisite\r\n1. Qt5.6\r\n2. C++ compiler supporting C++14, for example Visual Studio 2015, gcc5.2.\r\n3. Bison\r\n\r\n### Features\r\n1. Keywords highlight\r\n2. Pretty formatting\r\n3. C++ skeleton of implementation generating\r\n",
-  "note": "Don't delete this file! It's used internally to help with page regeneration."
-}
