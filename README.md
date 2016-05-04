@@ -10,10 +10,10 @@ It could generate C++ skeleton implementation from Gherkin.
 # Using precompiled package(Only for Windows)  
 The package includes Qt5.6 supporting DLLs.
 
-1. Uncompress CucumberC++.Windows.7z.You can download CucumberCpp.ex_ and change extension to exe if you have ready installed CucumberC++.Windows package.  
-2. Install Visual Studio 2015 run time. It can be downloaded from Microsoft site.  
-3. Start CucumberCpp.exe  
-4. Using non-English specifications in Gherkin when generating executable specification  
+1. Uncompress CucumberC++.Windows.7z.You can download CucumberCpp.ex_ and change extension to exe if you have ready installed CucumberC++.Windows package.
+2. Install Visual Studio 2015 run time. It can be downloaded from Microsoft site.
+3. Start CucumberCpp.exe
+4. Using non-English specifications in Gherkin when generating executable specification
     - Check "Support unicode" button if you use Visual Studio 2015. Non-English names, e.g. Japanese, Chinese, are used in feature class name, scenario class names and function names.
     - Uncheck "Support unicode" button if you use gcc. Unicode identifiers are used in feature class name, scenario class names and function names. Because g++ does not support UTF-8 characters in identifiers yet.
 
