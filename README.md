@@ -1,6 +1,6 @@
 # Cucumber/C++
-Cucumber/C++ is an editor of Cucumber/Gherkin, a language of specification by example in the world of BDD.
-It could generate C++ skeleton implementation from Gherkin.
+Cucumber/C++ is an editor of Cucumber/Gherkin, a language of specification by example in the BDD world.
+C++ step implementation is simple and straight forward.
 
 # Features
 1. Keywords highlight
@@ -13,9 +13,6 @@ The package includes Qt5.6 supporting DLLs.
 1. Uncompress CucumberC++.Windows.7z.You can download CucumberCpp.ex_ and change extension to exe if you have ready installed CucumberC++.Windows package.
 2. Install Microsoft Visual C++ Redistributable Package 2015. You can download it from Microsoft site.
 3. Start CucumberCpp.exe
-4. Using non-English specifications in Gherkin when generating executable specification
-    - Check "Support unicode" button if you use Visual Studio 2015. Non-English names, e.g. Japanese, Chinese, are used in feature class name, scenario class names and function names.
-    - Uncheck "Support unicode" button if you use gcc. Unicode identifiers are used in feature class name, scenario class names and function names. Because g++ does not support UTF-8 characters in identifiers yet.
 
 # Building Cucumber/C++
 1. Install Qt5.6
@@ -26,6 +23,7 @@ The package includes Qt5.6 supporting DLLs.
  
 # Limitations
 It only supports English Keywords of Gherkin. However you can use any languages to write specification by example in Gherkin.
+
 
 # Memo
 [Markdown help from stackoverflow](http://stackoverflow.com/editing-help)
