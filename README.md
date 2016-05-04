@@ -11,7 +11,7 @@ It could generate C++ skeleton implementation from Gherkin.
 The package includes Qt5.6 supporting DLLs.
 
 1. Uncompress CucumberC++.Windows.7z.You can download CucumberCpp.ex_ and change extension to exe if you have ready installed CucumberC++.Windows package.
-2. Install Visual Studio 2015 run time. It can be downloaded from Microsoft site.
+2. Install Microsoft Visual C++ Redistributable Package 2015. You can download it from Microsoft site.
 3. Start CucumberCpp.exe
 4. Using non-English specifications in Gherkin when generating executable specification
     - Check "Support unicode" button if you use Visual Studio 2015. Non-English names, e.g. Japanese, Chinese, are used in feature class name, scenario class names and function names.
@@ -27,5 +27,6 @@ The package includes Qt5.6 supporting DLLs.
 # Limitations
 It only supports English Keywords of Gherkin. However you can use any languages to write specification by example in Gherkin.
 
-
+# Markdown memo
+[Markdown help](http://stackoverflow.com/editing-help)
 
