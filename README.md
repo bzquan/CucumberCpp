@@ -27,6 +27,6 @@ The package includes Qt5.6 supporting DLLs.
 # Limitations
 It only supports English Keywords of Gherkin. However you can use any languages to write specification by example in Gherkin.
 
-# Markdown memo
-[Markdown help](http://stackoverflow.com/editing-help)
+# Memo
+[Markdown help from stackoverflow](http://stackoverflow.com/editing-help)
 
