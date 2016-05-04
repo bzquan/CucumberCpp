@@ -7,8 +7,8 @@ It could generate C++ skeleton implementation from Gherkin.
 2. Pretty formatting
 3. Generation of C++ Gherkin implementation skeleton.
 
-# Using precompiled package
-The package includes Qt5.6 supporting DLLs.
+# Using precompiled package(Only for Windows)  
+The package includes Qt5.6 supporting DLLs.  
 1. Uncompress CucumberC++.Windows.7z. You can download CucumberCpp.ex_ and change extension to exe if you have ready installed CucumberC++.Windows package.
 2. Install Visual Studio 2015 run time. It can be downloaded from Microsoft site.
 3. Start CucumberCpp.exe
