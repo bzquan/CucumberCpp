@@ -1,0 +1,84 @@
+﻿#include <algorithm>
+#include <QDebug>
+#include "Tag.h"
+#include "BDDStepBuilder.h"
+#include "BDDUtil.h"
+#include "BDDAbstrctScenarioBuilder.h"
+
+using namespace std;
+using namespace GherkinAst;
+using namespace CucumberCpp;
+
+void BDDAbstrctScenarioBuilder::AddScenarioStep(BDDStepBuilder* pStepBuilder)
+{
+    const wchar_t* MOCK_ATTR{L"[[mock]]"};
+    if (pStepBuilder->HasAttribute(MOCK_ATTR))
+    {
+        InsertAtBegining(pStepBuilder, MOCK_ATTR);
+    }
+    else
+    {
+        m_StepBuilderList.push_back(pStepBuilder);
+    }
+}
+
+void BDDAbstrctScenarioBuilder::InsertAtBegining(BDDStepBuilder* pStepBuilder, const wchar_t* attr)
+{
+    auto step_with_mock_attr = [&attr](BDDStepBuilder* pParam) { return pParam->HasAttribute(attr); };
+    list<BDDStepBuilder*>::reverse_iterator iter = std::find_if(m_StepBuilderList.rbegin(), m_StepBuilderList.rend(), step_with_mock_attr);
+    if (iter != m_StepBuilderList.rend())
+    {
+        m_StepBuilderList.insert(iter.base(), pStepBuilder);
+    }
+    else
+    {
+        m_StepBuilderList.push_front(pStepBuilder);
+    }
+}
+
+wstring BDDAbstrctScenarioBuilder::BuildGUIDTag()
+{
+    if (m_ScenarioTags.size() > 0)
+    {
+        auto isGUID = [](Tag& tag) { return tag.IsGUID(); };
+        vector<Tag>::iterator iter = std::find_if(m_ScenarioTags.begin(), m_ScenarioTags.end(), isGUID);
+        if (iter != m_ScenarioTags.end())
+        {
+            Tag guidTag = *iter;
+            return wstring(L"Spec(\"") + guidTag.Name() + L"\");";
+        }
+    }
+
+    return L"Spec(\"GUID has not been defined!\");";
+}
+
+wstring BDDAbstrctScenarioBuilder::BuildSteps(wstring indent)
+{
+    wstring stepOfScenario;
+    for (BDDStepBuilder* pStepBuilder : m_StepBuilderList)
+    {
+        stepOfScenario
+            .append(pStepBuilder->BuildStepForScenario(indent))
+            .append(BDDUtil::NEW_LINE);
+    }
+
+    return stepOfScenario;
+}
+
+void BDDAbstrctScenarioBuilder::MakeTableAndDocStringSeqNo()
+{
+    int tableSeqNo = 0;
+    int docStringSeqNo = 0;
+    for (BDDStepBuilder* pStepBuilder : m_StepBuilderList)
+    {
+        if (pStepBuilder->TableArg() != nullptr)
+        {
+            pStepBuilder->TableSeqNo(tableSeqNo++);
+        }
+        if (pStepBuilder->DocStringArg() != nullptr)
+        {
+            pStepBuilder->DocStringSeqNo(docStringSeqNo++);
+        }
+    }
+}
+
