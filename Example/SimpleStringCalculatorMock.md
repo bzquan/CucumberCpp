@@ -1,4 +1,4 @@
-# An Example of Cucumber/C++
+# An Example of using google mock object in step implementation
 Some times we may use google mock as a test double. Here is another string calculator feature. The difference from simple string calculator is that "__Then__ _The result should be <Sum>_" has been changed to " __Then__ _The result <Sum> shall be informed_". The calculaor may inform sum to a screen or GUI. 
 
     Feature: String calculator
@@ -64,7 +64,7 @@ Sure, this implementation will fail. The problem is that google mock requires th
      |7; 8; 9  |24 |
      |1, 2; 3  |-1 |
 
-Our test program will all succeed if we update our feature as following, where Cucumber/C++'s _[[mock]]_ attribute is used. Steps with __[[mock]]__ attribute will be executed before hand when running executable specification. It may decrease readability a little bit, but we can implement our steps in a straight forward way.
+Our test program will all succeed if we update our feature as following, where Cucumber/C++'s _[[mock]]_ attribute is used. Steps with __[[mock]]__ attribute will be executed before hand when running executable specification. It may decrease readability of specification a little bit, but we can implement our steps in a straight forward way.
 
     Feature: String calculator
      Client can get sum of numbers by inputting a string.
