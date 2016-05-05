@@ -3,7 +3,7 @@ Cucumber/C++ is an editor of Cucumber/Gherkin, a language of specification by ex
 C++ step implementation is simple and straight forward.
 
 # Screen shot
-[sceen shot](https://github.com/bzquan/CucumberCpp/blob/master/CucumberC%2B%2B.jpg)
+![sceen shot](https://github.com/bzquan/CucumberCpp/blob/master/CucumberC%2B%2B.jpg)
 
 # Features
 1. Keywords highlight
