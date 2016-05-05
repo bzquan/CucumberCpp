@@ -26,6 +26,7 @@ The package includes Qt5.6 supporting DLLs.
 
 # An Example
 [Simple string calculator](https://github.com/bzquan/CucumberCpp/blob/master/Example/SimpleStringCalculator.md)
+[How to use mock object](https://github.com/bzquan/CucumberCpp/blob/master/Example/SimpleStringCalculatorMock.md)
  
 # Limitations
 It only supports English Keywords of Gherkin. However you can use any languages to write specification by example in Gherkin.
