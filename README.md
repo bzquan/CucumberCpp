@@ -24,7 +24,7 @@ The package includes Qt5.6 supporting DLLs.
 3. Configure Qt projects, CucumberCpp.pro and GherkinParser.pro.
 4. CucumberCpp is GUI projects which depends on GherkinParser.
 
-# An Example
+# Examples
 [Simple string calculator](https://github.com/bzquan/CucumberCpp/blob/master/Example/SimpleStringCalculator.md)  
 [How to use mock object](https://github.com/bzquan/CucumberCpp/blob/master/Example/SimpleStringCalculatorMock.md)
  
