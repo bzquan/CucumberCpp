@@ -1,14 +1,12 @@
 Feature: String calculator
-Client can get sum of numbers by inputting a string.
+     Client can get sum of numbers by inputting a string.
 
-@guid-084139ff-dda8-440c-9941-f20a18464473
-Scenario Outline: A separator can be +, comma or semicolon
-Separator could be either +, comma or semicolon. But it is not
-allowed to combinate different separators.
+Scenario Outline: A separator can be +, comma or semicolon.
+     A separator could be either +, comma or semicolon. But it is not allowed to combinate different separators.
 
   Given Enter <Numbers> with separator
   When Sum all the numbers
-  Then The result should be <Sum> [[mock]]
+  Then The result <Sum> shall be informed[[mock]]
 
   Examples:
     |Numbers  |Sum|
