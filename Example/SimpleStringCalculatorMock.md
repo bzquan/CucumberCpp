@@ -44,7 +44,8 @@ In the implementation of scenario we may use following google mock object.
         }
     };
 
-The calling sequence of our executable specification is ![call sequence](https://github.com/bzquan/CucumberCpp/blob/master/Example/SimpleStringCalculatoMock/CallSequence.jpg). Sure, this implementation will fail. The problem is that google mock requires that the expectation of a mock object __must__ be set before a function of the mock object called. In other words, _MockDisplay::ExpectSum_ __must__ be called before _StringCalculator::CalculateSum_ called. This is an technique issue which is differnt from the normal readable specification. It will be unreadable specification if we rewrite the feature as following to pass our test program, i.e. put _Then_ step before the _When_ step. 
+The calling sequence of our executable specification is ![call sequence](https://github.com/bzquan/CucumberCpp/blob/master/Example/SimpleStringCalculatoMock/CallSequence.jpg).  
+Sure, this implementation will fail. The problem is that google mock requires that the expectation of a mock object __must__ be set before a function of the mock object called. In other words, _MockDisplay::ExpectSum_ __must__ be called before _StringCalculator::CalculateSum_ called. This is an technique issue which is differnt from the normal readable specification. It will be unreadable specification if we rewrite the feature as following to pass our test program, i.e. put _Then_ step before the _When_ step. 
 
     Feature: String calculator
      Client can get sum of numbers by inputting a string.
