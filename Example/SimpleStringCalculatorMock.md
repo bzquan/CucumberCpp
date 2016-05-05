@@ -83,6 +83,8 @@ By using Cucumber/C++'s _[[mock]]_ attribute, we can change our feature as littl
      |7; 8; 9  |24 |
      |1, 2; 3  |-1 |
 
+The executing calling sequence will be changed after using __[[mock]]__ attribute. ![call sequence](https://github.com/bzquan/CucumberCpp/blob/master/Example/SimpleStringCalculatoMock/CallSequence_mock_attribute.jpg).  
+
 You can find source code of this example from [here](https://github.com/bzquan/CucumberCpp/tree/master/Example/SimpleStringCalculatoMock)
 
 Note: Implementation of steps needs [Google test/mock](https://github.com/google/googletest)
