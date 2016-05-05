@@ -10,7 +10,7 @@ C++ step implementation is simple and straight forward.
 # Using precompiled package(Only for Windows)  
 The package includes Qt5.6 supporting DLLs.
 
-1. Uncompress CucumberC++.Windows.7z.You can download CucumberCpp.ex_ and change extension to exe if you have ready installed CucumberC++.Windows package.
+1. Uncompress CucumberC++.Windows.7z.You can download CucumberCpp.exe if you have ready installed CucumberC++.Windows package.
 2. Install Microsoft Visual C++ Redistributable Package 2015. You can download it from Microsoft site.
 3. Start CucumberCpp.exe
 
