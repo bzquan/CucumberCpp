@@ -20,6 +20,9 @@ The package includes Qt5.6 supporting DLLs.
 3. Optional: Bison is needed if you want to change Gherkin parser grammer, gherkin.y.
 3. Configure Qt projects, CucumberCpp.pro and GherkinParser.pro.
 4. CucumberCpp is GUI projects which depends on GherkinParser.
+
+# An Example
+[Simple string calculator](https://github.com/bzquan/CucumberCpp/blob/master/Example/SimpleStringCalculator.md)
  
 # Limitations
 It only supports English Keywords of Gherkin. However you can use any languages to write specification by example in Gherkin.
