@@ -26,6 +26,7 @@ We can generating following C++ implementations by using Cucumber/C++.
 
 String\_calculator\_Steps is a class of step definiton for the feature. String\_calculator\_Steps.h looks like this. We do not care about String\_calculator\_Steps class definition when implementing scenario steps. We need to implement the steps instead.
 
+``` c++  
     class String_calculator_Steps : public AbstractStepModel
     {
     public:
@@ -73,9 +74,10 @@ String\_calculator\_Steps is a class of step definiton for the feature. String\_
     private:
         String_calculator_TestModel model;
     };
-
+```
 Following is a skeleton of step implemetation(String\_calculator\_Steps.cpp).
 
+``` c++  
     #include "String_calculator_Steps.h"
 
     // Enter <Numbers> with separator
@@ -95,9 +97,11 @@ Following is a skeleton of step implemetation(String\_calculator\_Steps.cpp).
     {
         PendingStep(L"The_result_should_be_Sum");
     }
+```
 
 We recommend to use String\_calculator\_Steps as a kind of adaptor for step implementation. It shall be used to convert step parameters, e.g. table, table row, numbers. In order to separate concerns, all implementations shall be implemented in String\_calculator\_TestModel. Generated String\_calculator\_TestModel class has only SetUp, TearDown and VerifyExpectations functions. We need to add supporting functions to implement step definitions. Following is a definition of String\_calculator\_TestModel class(String\_calculator\_TestModel.h).
 
+``` c++  
     #pragma once
 
     #include "gtest/gtest.h"
@@ -122,9 +126,11 @@ We recommend to use String\_calculator\_Steps as a kind of adaptor for step impl
         int m_ExpectedSum;
         int m_ActualSum;
     };
+```
 
 Following is an implementation of String\_calculator\_TestModel class(String\_calculator\_TestModel.cpp).
 
+``` c++  
     #include "String_calculator_TestModel.h"
 
     using namespace ::testing;
@@ -148,9 +154,11 @@ Following is an implementation of String\_calculator\_TestModel class(String\_ca
     {
         m_ExpectedSum = sum;
     }
+```  
 
 Now we can implement step definitions easily by using String\_calculator\_TestModel class. "GherkinRow& row" is step parameter which is a table row from the examples table of scenario outline.(String\_calculator_Steps.cpp)
 
+``` c++  
     void String_calculator_Steps::Enter_Numbers_with_separator(GherkinRow& row)
     {
         model.Input(row[0].strValue());
@@ -165,9 +173,11 @@ Now we can implement step definitions easily by using String\_calculator\_TestMo
     {
         model.ExpectedSum(row[1].intValue());
     }
+```
 
 That is all about implementating steps. Now we can implement our simple string calculator, StringCalculator. An example of class definition is as following(StringCalculator.h).
 
+``` c++  
     #pragma once
 
     #include <string>
@@ -190,9 +200,11 @@ That is all about implementating steps. Now we can implement our simple string c
     private:
         int m_Result;
     };
+```
 
 Following is an implementation of StringCalculator(StringCalculator.cpp).
 
+``` c++  
     #include <vector>
     #include <sstream>
     #include "StringCalculator.h"
@@ -253,6 +265,7 @@ Following is an implementation of StringCalculator(StringCalculator.cpp).
         }
         return true;
     }
+```
 
 That is all.
 
