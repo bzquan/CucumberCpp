@@ -1,6 +1,7 @@
 Feature: String calculator
      Client can get sum of numbers by inputting a string.
 
+@guid-0e91e40c-a065-74a9-2ba1-0c3598fd6a1a
 Scenario Outline: A separator can be +, comma or semicolon.
      A separator could be either +, comma or semicolon. But it is not allowed to combinate different separators.
 
