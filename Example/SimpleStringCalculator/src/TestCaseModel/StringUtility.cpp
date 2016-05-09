@@ -4,6 +4,7 @@
 #include <locale>
 #include <algorithm>
 #include <sstream>
+#include <codecvt>
 
 #include "StringUtility.h"
 
@@ -21,6 +22,32 @@ void StringUtility::Split(vector<wstring>& tokens, const wstring& wstr)
         }
         start = end + 1;
     }
+}
+
+vector<string> StringUtility::Split(const string &str, char delimiter)
+{
+    stringstream iss(str);
+    string tmp;
+    vector<string> res;
+    while (getline(iss, tmp, delimiter))
+    {
+        res.push_back(tmp);
+    }
+
+    return res;
+}
+
+vector<wstring> StringUtility::Split(const wstring &str, wchar_t delimiter)
+{
+    wstringstream iss(str);
+    wstring tmp;
+    vector<wstring> res;
+    while (getline(iss, tmp, delimiter))
+    {
+        res.push_back(tmp);
+    }
+
+    return res;
 }
 
 wstring StringUtility::Trim(const wstring& wstr)

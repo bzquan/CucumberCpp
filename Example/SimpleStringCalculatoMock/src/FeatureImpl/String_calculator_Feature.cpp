@@ -51,7 +51,7 @@ public:
     void SetUp() override
     {
         String_calculator_Feature::SetUp();
-        Spec("@guid-08348828-99a2-d403-8a9d-adbb9ccd9b2a");
+        Spec("@guid-08173785-8ecc-3427-5807-f4d184e28ae8");
     }
 };
 
@@ -65,15 +65,16 @@ TEST_P(String_calculator_Feature_A_separator_can_be__comma_or_semicolon, Scenari
     ExecuteTest();
 }
 
+GherkinTable String_calculator_Feature_0_ExampleTable = GherkinTable(
+        L"|Numbers  |Sum|\n"
+        L"|1 + 2 + 3|6  |\n"
+        L"|4, 5, 6  |15 |\n"
+        L"|7; 8; 9  |24 |\n"
+        L"|1, 2; 3  |-1 |");
+
 INSTANTIATE_TEST_CASE_P(
         String_calculator_Feature_0,
         String_calculator_Feature_A_separator_can_be__comma_or_semicolon,
-        Values(//      |Numbers  |Sum|
-          GherkinRow(L"|1 + 2 + 3|6  |"),
-          GherkinRow(L"|4, 5, 6  |15 |"),
-          GherkinRow(L"|7; 8; 9  |24 |"),
-          GherkinRow(L"|1, 2; 3  |-1 |")
-        ));
-
+        testing::ValuesIn(String_calculator_Feature_0_ExampleTable.Rows()));
 
 

@@ -60,14 +60,17 @@ namespace bdd
 	class GherkinTable
 	{
 	public:
-        void SetColumnNames(wstring col_names);
-        vector<wstring> ColumnNames() { return m_ColumNames; }
-        int ColIndexFromName(wstring col_name);
+        GherkinTable() {}
+        GherkinTable(wstring table);
 
-		int RowCount() const { return m_Rows.size(); }
+        vector<wstring> ColumnNames() { return m_ColumNames; }
 
         GherkinTable& AddRow(wstring row);
+        vector<GherkinRow>& Rows() { return m_Rows; }
         GherkinRow& operator[](int index);
+
+        int RowCount() const { return m_Rows.size(); }
+        int ColIndexFromName(wstring col_name);
 
 		std::vector<GherkinRow>::iterator begin() { return m_Rows.begin(); }
 		std::vector<GherkinRow>::iterator end() { return m_Rows.end(); }

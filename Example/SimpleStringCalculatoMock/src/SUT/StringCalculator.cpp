@@ -34,15 +34,15 @@ char StringCalculator::GetSeparator(const string& input)
         return '\0';
 }
 
-vector<string> StringCalculator::Split(const string &str, char delim)
+std::vector<std::string> StringCalculator::Split(const std::string &str, char delim)
 {
-    istringstream iss(str);
-    string tmp;
-    vector<string> res;
+    std::istringstream iss(str);
+    std::string tmp;
+    std::vector<string> splitted_str;
     while (getline(iss, tmp, delim))
-        res.push_back(tmp);
+        splitted_str.push_back(tmp);
     
-    return res;
+    return splitted_str;
 }
 
 bool StringCalculator::IsSeprator(const string& input, char ch)

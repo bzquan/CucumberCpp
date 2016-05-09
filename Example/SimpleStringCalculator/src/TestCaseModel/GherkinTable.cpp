@@ -68,9 +68,17 @@ void GherkinRow::InitializeColumns(wstring& row_value)
     }
 }
 
-void GherkinTable::SetColumnNames(wstring col_names)
+GherkinTable::GherkinTable(const wstring table)
 {
-    StringUtility::Split(m_ColumNames, col_names);
+    vector<wstring> rows = StringUtility::Split(table, L'\n');
+    if (rows.size() == 0) return;
+
+    StringUtility::Split(m_ColumNames, rows[0]);
+
+    for (size_t i = 1; i < rows.size(); i++)
+    {
+        AddRow(rows[i]);
+    }
 }
 
 int GherkinTable::ColIndexFromName(wstring col_name)

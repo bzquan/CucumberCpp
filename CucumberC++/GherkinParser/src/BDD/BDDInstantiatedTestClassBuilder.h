@@ -19,7 +19,7 @@ namespace CucumberCpp
         std::wstring Build(GherkinAst::Example& examples);
 
     private:
-        std::wstring BuildParameters(std::vector<GherkinAst::TableRow>& rows);
+        std::wstring InstantiatedTestClass(std::wstring instantiationName, std::wstring exampleTableName);
 
     private:
         std::wstring m_FeatureClassName;

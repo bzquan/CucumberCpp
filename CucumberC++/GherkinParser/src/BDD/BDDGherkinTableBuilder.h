@@ -14,18 +14,11 @@ namespace CucumberCpp
     {
     public:
         std::wstring Build(GherkinAst::DataTable& dataTable, int tableSeqNo = -1, std::wstring indent = L"");
+        static std::wstring BuildTableVariable(GherkinAst::DataTable& dataTable, std::wstring& tableVariableName, std::wstring indent = L"");
 
     private:
-        void AppendGherkinTableDefinition();
-        void AppendGherkinTableBody(GherkinAst::DataTable& dataTable);
-        void AppendTableVariable();
-        void AppendGherkinTableHeader(GherkinAst::TableRow& row);
-        void AppendGherkinTableRows(GherkinAst::DataTable& dataTable);
-        std::wstring EndingOfRow(bool is_last_row);
-
-    private:
-        std::wstring m_tableBuilder;
-        std::wstring m_tableSeqNo;
-        std::wstring m_indent;
+        static std::wstring AppendGherkinTableDefinition(std::wstring& tableVariableName, std::wstring indent);
+        static std::wstring AppendGherkinTableBody(GherkinAst::DataTable& dataTable, std::wstring indent);
+        static std::wstring EndingOfRow(bool is_not_last_row);
     };
 }

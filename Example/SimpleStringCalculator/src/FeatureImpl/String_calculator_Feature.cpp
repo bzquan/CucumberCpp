@@ -65,15 +65,16 @@ TEST_P(String_calculator_Feature_A_separator_can_be__comma_or_semicolon, Scenari
     ExecuteTest();
 }
 
+GherkinTable String_calculator_Feature_0_ExampleTable = GherkinTable(
+        L"|Numbers  |Sum|\n"
+        L"|1 + 2 + 3|6  |\n"
+        L"|4, 5, 6  |15 |\n"
+        L"|7; 8; 9  |24 |\n"
+        L"|1, 2; 3  |-1 |");
+
 INSTANTIATE_TEST_CASE_P(
         String_calculator_Feature_0,
         String_calculator_Feature_A_separator_can_be__comma_or_semicolon,
-        Values(//      |Numbers  |Sum|
-          GherkinRow(L"|1 + 2 + 3|6  |"),
-          GherkinRow(L"|4, 5, 6  |15 |"),
-          GherkinRow(L"|7; 8; 9  |24 |"),
-          GherkinRow(L"|1, 2; 3  |-1 |")
-        ));
-
+        testing::ValuesIn(String_calculator_Feature_0_ExampleTable.Rows()));
 
 

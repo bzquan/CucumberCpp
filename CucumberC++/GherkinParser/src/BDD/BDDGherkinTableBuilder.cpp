@@ -8,70 +8,64 @@ using namespace CucumberCpp;
 
 wstring BDDGherkinTableBuilder::Build(DataTable& dataTable, int tableSeqNo, wstring indent)
 {
-    m_tableBuilder.clear();
+    std::wstring strTableSeqNo;
     if (tableSeqNo >= 0)
     {
-        m_tableSeqNo = std::to_wstring(tableSeqNo);
+        strTableSeqNo = std::to_wstring(tableSeqNo);
     }
 
-    m_indent = indent;
-    AppendGherkinTableDefinition();
-    AppendGherkinTableBody(dataTable);
-
-    return m_tableBuilder;
+    std::wstring tableVariableName = wstring(L"table") + strTableSeqNo;
+    return BuildTableVariable(dataTable, tableVariableName, indent);
 }
 
-void BDDGherkinTableBuilder::AppendGherkinTableDefinition()
+std::wstring BDDGherkinTableBuilder::BuildTableVariable(DataTable& dataTable, std::wstring& tableVariableName, std::wstring indent)
 {
-    m_tableBuilder
-        .append(m_indent + L"GherkinTable table" + m_tableSeqNo + L";")
+    std::wstring tableDefinition;
+    tableDefinition
+        .append(AppendGherkinTableDefinition(tableVariableName, indent))
+        .append(AppendGherkinTableBody(dataTable, indent));
+
+    return tableDefinition;
+}
+
+std::wstring BDDGherkinTableBuilder::AppendGherkinTableDefinition(std::wstring& tableVariableName, std::wstring indent)
+{
+    std::wstring tableDef;
+    tableDef
+        .append(indent + L"GherkinTable " + tableVariableName + L" = GherkinTable(")
         .append(BDDUtil::NEW_LINE);
+
+    return tableDef;
 }
 
-void BDDGherkinTableBuilder::AppendGherkinTableBody(DataTable& dataTable)
+std::wstring BDDGherkinTableBuilder::AppendGherkinTableBody(DataTable& dataTable, std::wstring indent)
 {
-    AppendTableVariable();
-    AppendGherkinTableHeader(dataTable.Rows()[0]);
-    AppendGherkinTableRows(dataTable);
-}
-
-void BDDGherkinTableBuilder::AppendTableVariable()
-{
-    m_tableBuilder
-        .append(m_indent + L"table" + m_tableSeqNo)
-        .append(BDDUtil::NEW_LINE);
-}
-
-void BDDGherkinTableBuilder::AppendGherkinTableHeader(TableRow& row)
-{
-    m_tableBuilder
-        .append(m_indent + L"//")
-        .append(BDDUtil::INDENT_TRIPLE)
-        .append(row.TrimmedFormattedText)
-        .append(BDDUtil::NEW_LINE);
-}
-
-void BDDGherkinTableBuilder::AppendGherkinTableRows(DataTable& dataTable)
-{
+    std::wstring tableBody;
     vector<TableRow>& rows = dataTable.Rows();
 
     int ROW_COUNT = rows.size();
-    for (int index = 1; index < ROW_COUNT; index++)
+    for (int index = 0; index < ROW_COUNT; index++)
     {
-        bool is_last_row = (index == ROW_COUNT - 1);
-        m_tableBuilder
-            .append(BDDUtil::INDENT)
-            .append(m_indent + L".AddRow(L\"")
+        bool is_not_last_row = (index < ROW_COUNT - 1);
+        tableBody
+            .append(BDDUtil::INDENT_DOUBLE)
+            .append(indent + L"L\"")
             .append(rows[index].TrimmedFormattedText)
-            .append(EndingOfRow(is_last_row))
-            .append(BDDUtil::NEW_LINE);
+            .append(EndingOfRow(is_not_last_row));
     }
+
+    return tableBody;
 }
 
-wstring BDDGherkinTableBuilder::EndingOfRow(bool is_last_row)
+wstring BDDGherkinTableBuilder::EndingOfRow(bool is_not_last_row)
 {
-    wstring ending_row(L"\")");
-    if (is_last_row) ending_row.append(L";");
+    wstring ending_row;
+    if (is_not_last_row) ending_row.append(L"\\n");
+    ending_row.append(L"\"");
+
+    if (!is_not_last_row) ending_row.append(L");");
+
+    ending_row.append(BDDUtil::NEW_LINE);
 
     return ending_row;
 }

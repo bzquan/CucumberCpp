@@ -15,6 +15,9 @@ class StringUtility
 {
 public:
     static void Split(vector<wstring>& tokens, const wstring& wstr);
+    static vector<string> Split(const string &str, char delimiter);
+    static vector<wstring> Split(const wstring &str, wchar_t delimiter);
+
     static wstring Trim(const wstring& str);
 
     static string wstring2string(const wstring& wstr);
