@@ -161,7 +161,7 @@ Now we can implement step definitions easily by using String\_calculator\_TestMo
 ``` c++  
     void String_calculator_Steps::Enter_Numbers_with_separator(GherkinRow& row)
     {
-        model.Input(row[0].strValue());
+        model.Input(row[L"Numbers"].strValue());
     }
 
     void String_calculator_Steps::Sum_all_the_numbers()
@@ -171,7 +171,7 @@ Now we can implement step definitions easily by using String\_calculator\_TestMo
 
     void String_calculator_Steps::The_result_should_be_Sum(GherkinRow& row)
     {
-        model.ExpectedSum(row[1].intValue());
+        model.ExpectedSum(row[L"Sum"].intValue());
     }
 ```
 
