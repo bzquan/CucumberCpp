@@ -6,12 +6,12 @@
 #endif
 
 #include "FeatureTestModel.h"
-#include "String_calculator_Steps.h"
+#include "String_calculator_using_mock_object_Steps.h"
 
 
-// String_calculator_Feature
+// String_calculator_using_mock_object_Feature
 
-class String_calculator_Feature : public FeatureTestModel
+class String_calculator_using_mock_object_Feature : public FeatureTestModel
 {
 public:
     void SetUp() override
@@ -40,32 +40,32 @@ protected:
     }
 
 private:
-    String_calculator_Steps steps;
+    String_calculator_using_mock_object_Steps steps;
 };
 
-class String_calculator_Feature_A_separator_can_be__comma_or_semicolon :
-    public String_calculator_Feature,
+class String_calculator_using_mock_object_Feature_A_separator_can_be__comma_or_semicolon :
+    public String_calculator_using_mock_object_Feature,
     public WithParamInterface<GherkinRow>
 {
 public:
     void SetUp() override
     {
-        String_calculator_Feature::SetUp();
-        Spec("@guid-084139ff-dda8-440c-9941-f20a18464473");
+        String_calculator_using_mock_object_Feature::SetUp();
+        Spec("@guid-08173785-8ecc-3427-5807-f4d184e28ae8");
     }
 };
 
-TEST_P(String_calculator_Feature_A_separator_can_be__comma_or_semicolon, ScenarioOutline)
+TEST_P(String_calculator_using_mock_object_Feature_A_separator_can_be__comma_or_semicolon, ScenarioOutline)
 {
     GherkinRow param = GetParam();
 
+    Then(L"The result <Sum> shall be informed[[mock]]", param);
     Given(L"Enter <Numbers> with separator", param);
     When(L"Sum all the numbers");
-    Then(L"The result should be <Sum>", param);
     ExecuteTest();
 }
 
-GherkinTable String_calculator_Feature_A_separator_can_be__comma_or_semicolon_1_ExampleTable = GherkinTable(
+GherkinTable String_calculator_using_mock_object_Feature_A_separator_can_be__comma_or_semicolon_1_ExampleTable = GherkinTable(
         L"|Numbers  |Sum|\n"
         L"|1 + 2 + 3|6  |\n"
         L"|4, 5, 6  |15 |\n"
@@ -73,8 +73,8 @@ GherkinTable String_calculator_Feature_A_separator_can_be__comma_or_semicolon_1_
         L"|1, 2; 3  |0  |");
 
 INSTANTIATE_TEST_CASE_P(
-        String_calculator_Feature_0,
-        String_calculator_Feature_A_separator_can_be__comma_or_semicolon,
-        testing::ValuesIn(String_calculator_Feature_A_separator_can_be__comma_or_semicolon_1_ExampleTable.Rows()));
+        String_calculator_using_mock_object_Feature_0,
+        String_calculator_using_mock_object_Feature_A_separator_can_be__comma_or_semicolon,
+        testing::ValuesIn(String_calculator_using_mock_object_Feature_A_separator_can_be__comma_or_semicolon_1_ExampleTable.Rows()));
 
 

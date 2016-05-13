@@ -3,6 +3,6 @@
 class IDisplay
 {
 public:
-    ~IDisplay(){}
+    virtual ~IDisplay(){}
     virtual void Sum(int sum) = 0;
 };

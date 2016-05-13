@@ -3,26 +3,22 @@
 #include "IDisplay.h"
 #include "StringCalculator.h"
 
-void StringCalculator::CalculateSum()
+int StringCalculator::CalculateSum()
 {
     char delim = GetSeparator(m_inputString);
-    vector<string> nums = Split(m_inputString, delim);
-    int sum = 0;
-    for (string& str : nums)
-    {
-        if (IsAllDigit(str))
-            sum += (int)stol(str);
-        else
-        {
-            sum = -1;
-            break;
-        }
-    }
+    std::vector<std::string> nums = Split(m_inputString, delim);
+    int sum = CalculateSum(nums);
+    InformResult(sum);
 
-    m_display.Sum(sum);
+    return sum;
 }
 
-char StringCalculator::GetSeparator(const string& input)
+void StringCalculator::InformResult(int sum)
+{
+    if (m_pDisplay != nullptr) m_pDisplay->Sum(sum);
+}
+
+char StringCalculator::GetSeparator(const std::string& input)
 {
     if (IsSeprator(input, '+'))
         return '+';
@@ -36,21 +32,38 @@ char StringCalculator::GetSeparator(const string& input)
 
 std::vector<std::string> StringCalculator::Split(const std::string &str, char delim)
 {
-    std::istringstream iss(str);
+    std::stringstream iss(str);
     std::string tmp;
-    std::vector<string> splitted_str;
+    std::vector<std::string> splitted_str;
     while (getline(iss, tmp, delim))
         splitted_str.push_back(tmp);
     
     return splitted_str;
 }
 
-bool StringCalculator::IsSeprator(const string& input, char ch)
+int StringCalculator::CalculateSum(std::vector<std::string>& nums)
 {
-    return string::npos != input.find(ch);
+    int sum = 0;
+    for (std::string& str : nums)
+    {
+        if (IsAllDigit(str))
+            sum += std::stoi(str);
+        else
+        {
+            sum = 0;
+            break;
+        }
+    }
+
+    return sum;
 }
 
-bool StringCalculator::IsAllDigit(const string& str)
+bool StringCalculator::IsSeprator(const std::string& input, char ch)
+{
+    return std::string::npos != input.find(ch);
+}
+
+bool StringCalculator::IsAllDigit(const std::string& str)
 {
     if (str.length() == 0) return false;
     for (char ch : str)

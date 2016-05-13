@@ -12,8 +12,8 @@ using namespace std;
 
 void StringUtility::Split(vector<wstring>& tokens, const wstring& wstr)
 {
-    int start = 0;
-    int end = 0;
+    size_t start = 0;
+    size_t end = 0;
     while ((end = wstr.find(L'|', start)) != string::npos) {
         if (start < end)
         {

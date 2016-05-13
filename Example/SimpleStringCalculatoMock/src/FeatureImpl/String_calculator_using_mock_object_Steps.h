@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "FeatureStepModel.h"
-#include "String_calculator_TestModel.h"
+#include "String_calculator_using_mock_object_TestModel.h"
 
 using namespace bdd;
 #ifdef WIN32
@@ -10,7 +10,7 @@ using namespace boost;
 #endif
 #endif
 
-class String_calculator_Steps : public AbstractStepModel
+class String_calculator_using_mock_object_Steps : public AbstractStepModel
 {
 public:
     void SetUp()
@@ -32,7 +32,7 @@ public:
 public:
     void Enter_Numbers_with_separator(GherkinRow&);
     void Sum_all_the_numbers();
-    void The_result_should_be_Sum(GherkinRow&);
+    void The_result_Sum_shall_be_informedmock(GherkinRow&);
 
 public:
     void RegisterSteps() override
@@ -40,18 +40,18 @@ public:
         Step(
             L"Enter <Numbers> with separator",
             function < void(GherkinRow&) >
-            (bind(&String_calculator_Steps::Enter_Numbers_with_separator, this, _1)));
+            (bind(&String_calculator_using_mock_object_Steps::Enter_Numbers_with_separator, this, _1)));
         Step(
             L"Sum all the numbers",
             function < void() >
-            (bind(&String_calculator_Steps::Sum_all_the_numbers, this)));
+            (bind(&String_calculator_using_mock_object_Steps::Sum_all_the_numbers, this)));
         Step(
-            L"The result should be <Sum>",
+            L"The result <Sum> shall be informed\\[\\[mock\\]\\]",
             function < void(GherkinRow&) >
-            (bind(&String_calculator_Steps::The_result_should_be_Sum, this, _1)));
+            (bind(&String_calculator_using_mock_object_Steps::The_result_Sum_shall_be_informedmock, this, _1)));
     }
 
 private:
-    String_calculator_TestModel model;
+    String_calculator_using_mock_object_TestModel model;
 };
 

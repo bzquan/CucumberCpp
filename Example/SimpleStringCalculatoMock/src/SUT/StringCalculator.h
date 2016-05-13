@@ -3,24 +3,24 @@
 #include <vector>
 #include <string>
 
-using namespace std;
-
 class IDisplay;
 
 class StringCalculator
 {
 public:
-    StringCalculator(IDisplay& display) : m_display(display) {}
-    void Input(const string input) { m_inputString = input; }
-    void CalculateSum();
+    StringCalculator(IDisplay* pDisplay = nullptr) : m_pDisplay(pDisplay) {}
+    void Input(const std::string input) { m_inputString = input; }
+    int CalculateSum();
 
 private:
-    std::vector<string> Split(const string &str, char delim);
-    char GetSeparator(const string& input);
-    bool IsSeprator(const string& input, char ch);
-    bool IsAllDigit(const string& str);
+    std::vector<std::string> Split(const std::string &str, char delim);
+    int CalculateSum(std::vector<std::string>& nums);
+    char GetSeparator(const std::string& input);
+    bool IsSeprator(const std::string& input, char ch);
+    bool IsAllDigit(const std::string& str);
+    void InformResult(int sum);
 
 private:
-    IDisplay& m_display;
-    string    m_inputString;
+    IDisplay*    m_pDisplay;
+    std::string  m_inputString;
 };

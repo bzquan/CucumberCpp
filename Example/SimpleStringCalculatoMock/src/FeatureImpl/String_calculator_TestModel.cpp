@@ -5,11 +5,6 @@
 
 using namespace ::testing;
 
-String_calculator_TestModel::String_calculator_TestModel() :
-    m_Calculator(m_MockDisplay)
-{
-}
-
 void String_calculator_TestModel::SetUp()
 {
 }
@@ -28,12 +23,12 @@ void String_calculator_TestModel::Input(string input)
     m_Calculator.Input(input);
 }
 
-void String_calculator_TestModel::CalculateSum()
+void String_calculator_TestModel::Sum()
 {
-    m_Calculator.CalculateSum();
+    m_ActualSum = m_Calculator.CalculateSum();
 }
 
 void String_calculator_TestModel::ExpectedSum(int sum)
 {
-    m_MockDisplay.ExpectSum(sum);
+    m_ExpectedSum = sum;
 }

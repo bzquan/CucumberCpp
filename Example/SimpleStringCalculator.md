@@ -269,6 +269,6 @@ Following is an implementation of StringCalculator(StringCalculator.cpp).
 
 That is all.
 
-You can find source code of this example from [here](https://github.com/bzquan/CucumberCpp/tree/master/Example/SimpleStringCalculator)
+You can find source code of this example from [here](https://github.com/bzquan/CucumberCpp/tree/master/Example/SimpleStringCalculatoMock)
 
 Note: Implementation of steps needs [Google test/mock](https://github.com/google/googletest)

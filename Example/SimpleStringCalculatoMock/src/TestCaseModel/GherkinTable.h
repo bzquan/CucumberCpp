@@ -39,7 +39,7 @@ namespace bdd
 		GherkinRow() : m_pTable(nullptr){}
 		GherkinRow(wstring row_value) : m_pTable(nullptr) { InitializeColumns(row_value); }
         GherkinRow(GherkinTable* pTable, wstring row_value) : m_pTable(pTable) { InitializeColumns(row_value); }
-        int ColumnCount() const { return m_Columns.size(); }
+        size_t ColumnCount() const { return m_Columns.size(); }
         GherkinColumn& operator[](int index);
         GherkinColumn& operator[](wstring col_name);
 
@@ -69,7 +69,7 @@ namespace bdd
         vector<GherkinRow>& Rows() { return m_Rows; }
         GherkinRow& operator[](int index);
 
-        int RowCount() const { return m_Rows.size(); }
+        size_t RowCount() const { return m_Rows.size(); }
         int ColIndexFromName(wstring col_name);
 
 		std::vector<GherkinRow>::iterator begin() { return m_Rows.begin(); }
