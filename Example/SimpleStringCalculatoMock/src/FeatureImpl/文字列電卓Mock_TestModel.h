@@ -22,6 +22,4 @@ public:
 private:
     MockDisplay      m_MockDisplay;
     StringCalculator m_Calculator;
-    int m_ExpectedSum;
-    int m_ActualSum;
 };

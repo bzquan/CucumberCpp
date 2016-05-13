@@ -60,8 +60,7 @@ TEST_P(String_calculator_using_mock_object_Feature_A_separator_can_be__comma_or_
     GherkinRow param = GetParam();
 
     Then(L"The result <Sum> shall be informed[[mock]]", param);
-    Given(L"Enter <Numbers> with separator", param);
-    When(L"Sum all the numbers");
+    When(L"Input <Numbers>", param);
     ExecuteTest();
 }
 

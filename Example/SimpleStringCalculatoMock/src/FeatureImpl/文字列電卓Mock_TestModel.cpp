@@ -20,7 +20,7 @@ void 文字列電卓Mock_TestModel::VerifyExpectations()
 void 文字列電卓Mock_TestModel::Input(string input)
 {
     m_Calculator.Input(input);
-    m_ActualSum = m_Calculator.CalculateSum();
+    m_Calculator.CalculateSum();
 }
 
 void 文字列電卓Mock_TestModel::ExpectedSum(int sum)

@@ -5,8 +5,7 @@ Feature: String calculator using mock object
 Scenario Outline: A separator can be +, comma or semicolon.
      A separator could be either +, comma or semicolon. But it is not allowed to combinate different separators.
 
-  Given Enter <Numbers> with separator
-  When Sum all the numbers
+  When Input <Numbers>
   Then The result <Sum> shall be informed[[mock]]
 
   Examples:

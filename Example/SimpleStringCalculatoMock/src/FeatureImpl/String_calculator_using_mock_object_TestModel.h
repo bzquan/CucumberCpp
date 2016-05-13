@@ -17,12 +17,9 @@ public:
     void TearDown();
     void VerifyExpectations() override;
     void Input(string input);
-    void CalculateSum();
     void ExpectedSum(int sum);
 
 private:
     MockDisplay      m_MockDisplay;
     StringCalculator m_Calculator;
-    int m_ExpectedSum;
-    int m_ActualSum;
 };

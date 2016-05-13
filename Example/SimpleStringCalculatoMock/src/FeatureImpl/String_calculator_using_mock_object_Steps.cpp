@@ -1,15 +1,9 @@
 ﻿#include "String_calculator_using_mock_object_Steps.h"
 
-// Enter <Numbers> with separator
-void String_calculator_using_mock_object_Steps::Enter_Numbers_with_separator(GherkinRow& row)
+// Input <Numbers>
+void String_calculator_using_mock_object_Steps::Input_Numbers(GherkinRow& row)
 {
     model.Input(row[L"Numbers"].strValue());
-}
-
-// Sum all the numbers
-void String_calculator_using_mock_object_Steps::Sum_all_the_numbers()
-{
-    model.CalculateSum();
 }
 
 // The result <Sum> shall be informed[[mock]]

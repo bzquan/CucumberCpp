@@ -15,16 +15,11 @@ void String_calculator_using_mock_object_TestModel::TearDown()
 
 void String_calculator_using_mock_object_TestModel::VerifyExpectations()
 {
-    ASSERT_EQ(m_ExpectedSum, m_ActualSum);
 }
 
 void String_calculator_using_mock_object_TestModel::Input(string input)
 {
     m_Calculator.Input(input);
-}
-
-void String_calculator_using_mock_object_TestModel::CalculateSum()
-{
     m_Calculator.CalculateSum();
 }
 

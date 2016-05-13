@@ -30,21 +30,16 @@ public:
     }
 
 public:
-    void Enter_Numbers_with_separator(GherkinRow&);
-    void Sum_all_the_numbers();
+    void Input_Numbers(GherkinRow&);
     void The_result_Sum_shall_be_informedmock(GherkinRow&);
 
 public:
     void RegisterSteps() override
     {
         Step(
-            L"Enter <Numbers> with separator",
+            L"Input <Numbers>",
             function < void(GherkinRow&) >
-            (bind(&String_calculator_using_mock_object_Steps::Enter_Numbers_with_separator, this, _1)));
-        Step(
-            L"Sum all the numbers",
-            function < void() >
-            (bind(&String_calculator_using_mock_object_Steps::Sum_all_the_numbers, this)));
+            (bind(&String_calculator_using_mock_object_Steps::Input_Numbers, this, _1)));
         Step(
             L"The result <Sum> shall be informed\\[\\[mock\\]\\]",
             function < void(GherkinRow&) >
