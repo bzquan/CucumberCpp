@@ -19,7 +19,12 @@ wstring BDDInstantiatedTestClassBuilder::Build(Example& example)
     wstring instantiationName = m_FeatureClassName + L"_" + std::to_wstring(m_InstanceNo);
     m_InstanceNo++;
 
-    wstring exampleTableName = BDDUtil::to_ident(instantiationName) + L"_ExampleTable";
+    wstring exampleTableName;
+    exampleTableName
+        .append(BDDUtil::to_ident(m_ScenarioOutlineClassName))
+        .append(L"_")
+        .append(std::to_wstring(m_InstanceNo))
+        .append(L"_ExampleTable");
 
     wstring instantiatedTestClass;
     instantiatedTestClass

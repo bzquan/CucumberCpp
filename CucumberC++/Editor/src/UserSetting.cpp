@@ -55,7 +55,7 @@ void UserSetting::setLastUsedFile(QString file)
 
 bool UserSetting::supportUnicode()
 {
-    return s_Settings.value("compile/supportUnicode", false).toBool();
+    return s_Settings.value("compile/supportUnicode", true).toBool();
 }
 
 
