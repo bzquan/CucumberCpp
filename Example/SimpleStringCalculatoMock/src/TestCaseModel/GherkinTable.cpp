@@ -18,7 +18,7 @@ bool GherkinRow::operator==(const GherkinRow& row) const
 		return false;
 	}
 
-	for (size_t i = 0; i < this->ColumnCount(); i++ )
+	for (int i = 0; i < this->ColumnCount(); i++ )
 	{
 		GherkinRow& other_row = const_cast<GherkinRow&>(row);
 		if ( m_Columns[i] != other_row[i] )
@@ -38,7 +38,7 @@ bool GherkinRow::operator!=(const GherkinRow& row) const
 
 GherkinColumn& GherkinRow::operator[](int index)
 {
-    if ( (index >= 0) && (index < static_cast<int>(ColumnCount())) )
+    if ( (index >= 0) && (index < ColumnCount()) )
     {
         return m_Columns[index];
     }
@@ -81,6 +81,32 @@ GherkinTable::GherkinTable(const wstring table)
     }
 }
 
+GherkinTable::GherkinTable(const GherkinTable& table)
+{
+    Copy(table);
+}
+
+GherkinTable& GherkinTable::operator=(const GherkinTable& table)
+{
+    if (this != &table)
+    {
+        Copy(table);
+    }
+
+    return *this;
+}
+
+void GherkinTable::Copy(const GherkinTable& table)
+{
+    m_ColumNames = table.m_ColumNames;
+    m_Rows = table.m_Rows;
+
+    for (GherkinRow& row : m_Rows)
+    {
+        row.SetTable(this);
+    }
+}
+
 int GherkinTable::ColIndexFromName(wstring col_name)
 {
     int index = 0;
@@ -106,7 +132,7 @@ bool GherkinTable::operator==(const GherkinTable& table) const
 		return false;
 	}
 
-	for (size_t i = 0; i < this->RowCount(); i++ )
+	for (int i = 0; i < this->RowCount(); i++ )
 	{
 		GherkinTable& other_table = const_cast<GherkinTable&>(table);
 		if ( m_Rows[i] != other_table[i] )
@@ -120,7 +146,7 @@ bool GherkinTable::operator==(const GherkinTable& table) const
 
 GherkinRow& GherkinTable::operator[](int index)
 {
-    if (index < static_cast<int>(RowCount()))
+    if (index < RowCount())
     {
         return m_Rows[index];
     }

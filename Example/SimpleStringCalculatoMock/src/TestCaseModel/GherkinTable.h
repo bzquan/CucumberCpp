@@ -39,7 +39,7 @@ namespace bdd
 		GherkinRow() : m_pTable(nullptr){}
 		GherkinRow(wstring row_value) : m_pTable(nullptr) { InitializeColumns(row_value); }
         GherkinRow(GherkinTable* pTable, wstring row_value) : m_pTable(pTable) { InitializeColumns(row_value); }
-        size_t ColumnCount() const { return m_Columns.size(); }
+        int ColumnCount() const { return m_Columns.size(); }
         GherkinColumn& operator[](int index);
         GherkinColumn& operator[](wstring col_name);
 
@@ -49,7 +49,9 @@ namespace bdd
 		bool operator==(const GherkinRow& row) const;
 		bool operator!=(const GherkinRow& row) const;
 
-	protected:
+        void SetTable(GherkinTable* pTable) { m_pTable = pTable; }
+
+    private:
         void InitializeColumns(wstring& row_value);
 
 	private:
@@ -62,6 +64,8 @@ namespace bdd
 	public:
         GherkinTable() {}
         GherkinTable(wstring table);
+        GherkinTable(const GherkinTable& table);
+        GherkinTable& operator=(const GherkinTable& table);
 
         vector<wstring> ColumnNames() { return m_ColumNames; }
 
@@ -69,7 +73,7 @@ namespace bdd
         vector<GherkinRow>& Rows() { return m_Rows; }
         GherkinRow& operator[](int index);
 
-        size_t RowCount() const { return m_Rows.size(); }
+        int RowCount() const { return m_Rows.size(); }
         int ColIndexFromName(wstring col_name);
 
 		std::vector<GherkinRow>::iterator begin() { return m_Rows.begin(); }
@@ -77,7 +81,10 @@ namespace bdd
 
 		bool operator==(const GherkinTable& table) const;
 
-	private:
+    private:
+        void Copy(const GherkinTable& table);
+    
+    private:
 		vector<GherkinRow> m_Rows;
         vector<wstring>    m_ColumNames;
 	};
