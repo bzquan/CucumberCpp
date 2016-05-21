@@ -1,9 +1,10 @@
 ﻿#pragma once
 
-#if (_MSC_VER < 1900)   // _MSC_VER == 1900 (Visual Studio 2015, MSVC++ 14.0)
-#include <boost/regex.hpp>
+#if defined(WIN32) && (_MSC_VER < 1900)
+    // _MSC_VER == 1900 (Visual Studio 2015, MSVC++ 14.0)
+	#include <boost/regex.hpp>
 #else
-#include <regex>
+	#include <regex>
 #endif
 
 #include <string>
@@ -35,7 +36,7 @@ namespace bdd
 		}
 		int intValue()
 		{
-			StringUtility::stoi(m_value);
+            return StringUtility::stoi(m_value);
 		}
 		long longValue()
 		{

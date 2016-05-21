@@ -5,15 +5,15 @@
 #include <algorithm>
 #include <sstream>
 #include <codecvt>
-
+#include <climits>
 #include "StringUtility.h"
 
 using namespace std;
 
 void StringUtility::Split(vector<wstring>& tokens, const wstring& wstr)
 {
-    size_t start = 0;
-    size_t end = 0;
+    wstring::size_type start = 0;
+    wstring::size_type end = 0;
     while ((end = wstr.find(L'|', start)) != string::npos) {
         if (start < end)
         {
@@ -83,53 +83,18 @@ wstring StringUtility::FilterQuotations(const wstring& wstr)
 
 string StringUtility::wstring2string(const wstring& wstr)
 {
-	if (wstr.length() == 0) return std::string();
+    typedef std::codecvt_utf8<wchar_t> convert_type;
+    std::wstring_convert<convert_type, wchar_t> cvt;
 
-	const std::locale locale("");
-	typedef std::codecvt<wchar_t, char, std::mbstate_t> converter_type;
-	const converter_type& converter = std::use_facet<converter_type>(locale);
-	std::vector<char> to(wstr.length() * converter.max_length());
-	std::mbstate_t state;
-	const wchar_t* from_next;
-	char* to_next;
-	const converter_type::result result = converter.out(state, wstr.data(), wstr.data() + wstr.length(), from_next, &to[0], &to[0] + to.size(), to_next);
-	if (result == converter_type::ok || result == converter_type::noconv)
-	{
-		std::string(&to[0], to_next);
-		return std::string(&to[0], to_next);
-	}
-
-	return std::string();
-}
-
-// It only works for ASCII only wstring
-std::string StringUtility::wstring2string2(const wstring& wstr)
-{
-	if (wstr.length() == 0) return "";
-
-	size_t length = wstr.size();
-	size_t convLength;
-	const size_t mem_size = sizeof(char)* length * 2 + 1; // enough memory to have a string
-	char *c = (char*)malloc(mem_size);
-	wcstombs_s(&convLength, c, mem_size, wstr.c_str(), length * 2);
-
-	string resultStr(c);
-	free(c);
-
-	return resultStr;
+    return cvt.to_bytes(wstr);
 }
 
 wstring StringUtility::string2wstring(const string& str)
 {
-    size_t length = str.size();
-    size_t convLength;
-    wchar_t *wc = (wchar_t*)malloc(sizeof(wchar_t)* (length + 2));
-    mbstowcs_s(&convLength, wc, length + 1, str.c_str(), _TRUNCATE);
+    typedef std::codecvt_utf8<wchar_t> convert_type;
+    std::wstring_convert<convert_type, wchar_t> cvt;
 
-    wstring resultStr(wc);
-    free(wc);
-
-    return resultStr;
+    return cvt.from_bytes(str);
 }
 
 NString StringUtility::wstring2NString(const wstring& wstr)
@@ -168,51 +133,76 @@ bool StringUtility::IsValidStartOfNumber(const string& str)
 
 int StringUtility::stoi(const wstring& wstr)
 {
-	return (int)stol(wstr);
+    wstring text = RemoveAllComma(wstr);
+
+    try
+    {
+        return std::stoi(text);
+    }
+    catch(...)
+    {
+        return INT_MAX;
+    }
 }
 
 int StringUtility::stoi(const string& str)
 {
-    return (int)stol(str);
+    string text = RemoveAllComma(str);
+    try
+    {
+        return std::stoi(text);
+    }
+    catch(...)
+    {
+        return INT_MAX;
+    }
 }
 
 long StringUtility::stol(const wstring& wstr)
 {
-    string str = wstring2string(wstr);
-	RemoveAllComma(str);
-    if (!IsNumber(str))
+    wstring text = RemoveAllComma(wstr);
+    try
+    {
+        return std::stol(text);
+    }
+    catch(...)
     {
         return LONG_MAX;
     }
-
-    return stol(str);
 }
 
 long StringUtility::stol(const string& str)
 {
-    char* error = NULL;
-    long value = strtol(str.c_str(), &error, 10);
-    if (*error == '\0')
-        return value;
-    else
+    string text = RemoveAllComma(str);
+    try
+    {
+        return std::stol(text);
+    }
+    catch(...)
+    {
         return LONG_MAX;
+    }
 }
 
 double StringUtility::stod(const wstring& wstr)
 {
-    string str = wstring2string(wstr);
-	RemoveAllComma(str);
-	if (!IsNumber(str))
+    wstring text = RemoveAllComma(wstr);
+    try
+    {
+        return std::stod(text);
+    }
+    catch(...)
     {
         return HUGE_VAL;
     }
+}
 
-    char* error = NULL;
-    double value = strtod(str.c_str(), &error);
-    if (*error == '\0')
-        return value;
-    else
-        return HUGE_VAL;
+wstring StringUtility::RemoveAllChar(const wstring& str, wchar_t ch)
+{
+    wstring workStr = str;
+    workStr.erase(std::remove(workStr.begin(), workStr.end(), ch), workStr.end());
+
+    return workStr;
 }
 
 string StringUtility::RemoveAllChar(const string& str, char ch)
@@ -236,13 +226,9 @@ void StringUtility::RemoveAllCharDirectly(string& str, char ch)
     str.erase(std::remove(str.begin(), str.end(), ch), str.end());
 }
 
-
-wstring StringUtility::RemoveAllChar(const wstring& str, char ch)
+void StringUtility::RemoveAllCharDirectly(wstring& str, wchar_t ch)
 {
-	wstring workStr = str;
-	workStr.erase(std::remove(workStr.begin(), workStr.end(), ch), workStr.end());
-
-	return workStr;
+    str.erase(std::remove(str.begin(), str.end(), ch), str.end());
 }
 
 string StringUtility::int2hex(int value)

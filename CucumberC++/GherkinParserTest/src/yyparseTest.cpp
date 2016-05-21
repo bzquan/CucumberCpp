@@ -292,10 +292,9 @@ TEST_F(yyparseTest, StepDocString)
     GherkinAst::StepArgument* pArg = steps[0].StepArgument();
     GherkinAst::DocString* pDocStr = dynamic_cast<GherkinAst::DocString*>(pArg);
     ASSERT_TRUE(pDocStr != nullptr);
-//    GherkinAst::DocString* pDocStr = dynamic_cast<GherkinAst::DocString*>(pArg);
     wstring doc_str {
-        L"1st line\n"
-        L"2nd line"
+        L"  1st line\n"
+        L"  2nd line"
     };
 
     ASSERT_EQ(doc_str, pDocStr->Content());

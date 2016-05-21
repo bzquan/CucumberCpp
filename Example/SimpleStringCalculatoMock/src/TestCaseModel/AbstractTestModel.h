@@ -11,7 +11,8 @@ using namespace std;
 class ITestAction
 {
 public:
-	virtual void Excecute() = 0;
+    virtual ~ITestAction(){}
+    virtual void Excecute() = 0;
 };
 
 template <class T>

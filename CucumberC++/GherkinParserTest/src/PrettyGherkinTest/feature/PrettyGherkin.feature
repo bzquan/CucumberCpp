@@ -8,7 +8,7 @@ Scenario: GUIDなしのGherkin
   GUIDが新規付与される。
 
   Given 下記Gherkin文がある
-    """Gherkin
+    """
     Feature : 機能概要
     Scenario : title
     Given 前提条件
@@ -17,11 +17,11 @@ Scenario: GUIDなしのGherkin
   Then 整形後のScenarioにGUIDが追加されること
   And 整形後のGherkin文は下記である
     """
-    Feature: 機能概要
-    
-    Scenario: title
-    
-    ^  Given 前提条件
+Feature: 機能概要
+
+Scenario: title
+
+  Given 前提条件
     """
 
 @guid-25558861-e8c0-46df-bca2-2b5c524791be
@@ -38,12 +38,12 @@ Scenario: GUIDありのGherkin
   When Gherkin文を整形する
   Then 整形後のGherkin文は下記である
     """
-    Feature: 機能概要
-    
-    @guid-25558861-e8c0-46df-bca2-2b5c524791be
-    Scenario: title
-    
-    ^  Given 前提条件
+Feature: 機能概要
+
+@guid-25558861-e8c0-46df-bca2-2b5c524791be
+Scenario: title
+
+  Given 前提条件
     """
 
 @guid-d4f6d044-762b-4714-9aa4-f12935cf8ced
@@ -62,12 +62,12 @@ Scenario: FeatureのTag
   Then 整形後のScenarioにGUIDが追加されること
   And 整形後のGherkin文は下記である
     """
-    @tag1 @tag2
-    Feature: 機能概要
-    
-    Scenario: title
-    
-    ^  Given 前提条件
+@tag1 @tag2
+Feature: 機能概要
+
+Scenario: title
+
+  Given 前提条件
     """
 
 @guid-4e299a51-b12c-412c-bf38-8f54c60207cb
@@ -77,11 +77,11 @@ Scenario: FeatureのBackground
   Given 下記Gherkin文がある
     """
     Feature : feature title
-    
+
     Background: background title
     Description of background
     Given precondition
-    
+
     @guid-xxxxx
     Scenario : title
     When action
@@ -89,17 +89,17 @@ Scenario: FeatureのBackground
   When Gherkin文を整形する
   Then 整形後のGherkin文は下記である
     """
-    Feature: feature title
-    
-    Background: background title
+Feature: feature title
+
+Background: background title
     Description of background
-    
-    ^  Given precondition
-    
-    @guid-xxxxx
-    Scenario: title
-    
-    ^  When action
+
+  Given precondition
+
+@guid-xxxxx
+Scenario: title
+
+  When action
     """
 
 @guid-d5e16284-9fdb-4db0-bbe5-f01e3bac9558
@@ -117,13 +117,13 @@ Scenario: ScenarioのTagは最後尾に
   When Gherkin文を整形する
   Then 整形後のGherkin文は下記である
     """
-    Feature: 機能概要
-    
-    @tag1
-    @guid-d5e16284-9fdb-4db0-bbe5-f01e3bac9558
-    Scenario: title
-    
-    ^  Given 前提条件
+Feature: 機能概要
+
+@tag1
+@guid-d5e16284-9fdb-4db0-bbe5-f01e3bac9558
+Scenario: title
+
+  Given 前提条件
     """
 
 @guid-dd9cce71-75cb-4375-84db-abf98ee5d1b3
@@ -147,22 +147,22 @@ Scenario: 複数のScenario
   Then 整形後のScenarioにGUIDが追加されること
   And 整形後のGherkin文は下記である
     """
-    Feature: feature title
-    
-    Background: background title
-    
-    ^  Given precondition
-    
-    Scenario: title1
-    
-    ^  Given precondition
-    
-    Scenario: title2
+Feature: feature title
+
+Background: background title
+
+  Given precondition
+
+Scenario: title1
+
+  Given precondition
+
+Scenario: title2
     Description of scenario2
-    
-    ^  Given precondition
-    ^  When action
-    ^  Then expectation
+
+  Given precondition
+  When action
+  Then expectation
     """
 
 @guid-6bb754fa-1838-4c87-8716-390f441dc0a1
@@ -174,24 +174,24 @@ Scenario: DocString argument
     Feature : feature title
     Scenario : title
     Given precondition
-    ^\"\"\"
+    ^"""
     line1
     line2
-    ^\"\"\"
+    ^"""
     """
   When Gherkin文を整形する
   Then 整形後のScenarioにGUIDが追加されること
   And 整形後のGherkin文は下記である
     """
-    Feature: feature title
-    
-    Scenario: title
-    
-    ^  Given precondition
-    ^    \"\"\"
-    ^    line1
-    ^    line2
-    ^    \"\"\"
+Feature: feature title
+
+Scenario: title
+
+  Given precondition
+^    """
+    line1
+    line2
+^    """
     """
 
 @guid-d0908cd3-0ac3-44c0-af91-161b306ac151
@@ -211,14 +211,14 @@ Scenario: Table argument
   Then 整形後のScenarioにGUIDが追加されること
   And 整形後のGherkin文は下記である
     """
-    Feature: feature title
-    
-    Scenario: title
-    
-    ^  Given precondition
-    ^    |col1|col2|
-    ^    |v11 |v12 |
-    ^    |v21 |v22 |
+Feature: feature title
+
+Scenario: title
+
+  Given precondition
+    |col1|col2|
+    |v11 |v12 |
+    |v21 |v22 |
     """
 
 @guid-adbfcca8-6ca6-4f78-8511-6032fa9f7473
@@ -238,14 +238,14 @@ Scenario: 規則性なしのTable argument
   Then 整形後のScenarioにGUIDが追加されること
   And 整形後のGherkin文は下記である
     """
-    Feature: feature title
-    
-    Scenario: title
-    
-    ^  Given precondition
-    ^    |col1  |col2  |
-    ^    |v11abc|v12   |
-    ^    |v21   |v22abc|
+Feature: feature title
+
+Scenario: title
+
+  Given precondition
+    |col1  |col2  |
+    |v11abc|v12   |
+    |v21   |v22abc|
     """
 
 @guid-2f7ad31c-346e-4fde-bf8e-c14b1b449580
@@ -268,17 +268,17 @@ Scenario: CommentありのGherkin
   Then 整形後のScenarioにGUIDが追加されること
   And 整形後のGherkin文は下記である
     """
-    Feature: feature title
+Feature: feature title
     Description of feature
     # comment1
-    
-    Scenario: title
-    
+
+Scenario: title
+
     // comment2
-    ^  Given precondition
-    ^    |col1|col2|
-    ^    |v11 |v12 |
-    ^    |v21 |v22 |
+  Given precondition
+    |col1|col2|
+    |v11 |v12 |
+    |v21 |v22 |
     """
 
 @guid-ed3062ed-df5c-4bd5-8740-c1bd7eae7386
@@ -300,17 +300,17 @@ Scenario: scenario outline
   Then 整形後のScenarioにGUIDが追加されること
   And 整形後のGherkin文は下記である
     """
-    Feature: feature title
-    
-    Scenario Outline: title
+Feature: feature title
+
+Scenario Outline: title
     Description of scenario outline
-    
-    ^  Given precondition
-    ^
-    ^  Examples:
-    ^    |col1|col2|
-    ^    |v11 |v12 |
-    ^    |v21 |v22 |
+
+  Given precondition
+
+  Examples:
+    |col1|col2|
+    |v11 |v12 |
+    |v21 |v22 |
     """
 
 @guid-28675d82-8d7a-4e50-b87b-54835112e155
@@ -335,19 +335,19 @@ Scenario: scenario outline with multi examples
   Then 整形後のScenarioにGUIDが追加されること
   And 整形後のGherkin文は下記である
     """
-    Feature: feature title
-    
-    Scenario Outline: title
-    
-    ^  Given precondition
-    ^
-    ^  Examples: example1
-    ^    |col1|col2|
-    ^    |v11 |v12 |
-    ^    |v21 |v22 |
-    ^
-    ^  Examples: example2
-    ^    |col1|col2|
-    ^    |b11 |b12 |
-    ^    |b21 |b22 |
+Feature: feature title
+
+Scenario Outline: title
+
+  Given precondition
+
+  Examples: example1
+    |col1|col2|
+    |v11 |v12 |
+    |v21 |v22 |
+
+  Examples: example2
+    |col1|col2|
+    |b11 |b12 |
+    |b21 |b22 |
     """

@@ -99,7 +99,7 @@ namespace bdd
 		template<typename T1, typename T2, typename T3, typename T4, typename T5>
 		void Step(wstring text, function<void(T1, T2, T3, T4, T5)> step)
 		{
-			AddStep(text, new <T1, T2, T3, T4, T5>StepFunction5(step));
+			AddStep(text, new StepFunction5<T1, T2, T3, T4, T5>(step));
 		}
 
 		template<typename T1, typename T2>

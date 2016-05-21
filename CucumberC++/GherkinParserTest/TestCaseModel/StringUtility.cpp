@@ -24,22 +24,45 @@ void StringUtility::Split(vector<wstring>& tokens, const wstring& wstr)
     }
 }
 
+vector<string> StringUtility::Split(const string &str, char delimiter)
+{
+    stringstream iss(str);
+    string tmp;
+    vector<string> res;
+    while (getline(iss, tmp, delimiter))
+    {
+        res.push_back(tmp);
+    }
+
+    return res;
+}
+
+vector<wstring> StringUtility::Split(const wstring &str, wchar_t delimiter)
+{
+    wstringstream iss(str);
+    wstring tmp;
+    vector<wstring> res;
+    while (getline(iss, tmp, delimiter))
+    {
+        res.push_back(tmp);
+    }
+
+    return res;
+}
+
 wstring StringUtility::Trim(const wstring& wstr)
 {
-    if (wstr.length() == 0) return wstring();
-
     const wchar_t* WHITE_SPACES = L" \t";
+
+    wstring result;
     wstring::size_type left = wstr.find_first_not_of(WHITE_SPACES);
-    wstring::size_type right = wstr.find_last_not_of(WHITE_SPACES);
     if (left != wstring::npos)
     {
-        wstring result = wstr.substr(left, right - left + 1);
-        return FilterQuotations(result);
+        wstring::size_type right = wstr.find_last_not_of(WHITE_SPACES);
+        result = wstr.substr(left, right - left + 1);
     }
-    else
-    {
-        return wstring();
-    }
+
+    return FilterQuotations(result);
 }
 
 wstring StringUtility::FilterQuotations(const wstring& wstr)
@@ -174,7 +197,7 @@ double StringUtility::stod(const wstring& wstr)
     }
 }
 
-wstring StringUtility::RemoveAllChar(const wstring& str, char ch)
+wstring StringUtility::RemoveAllChar(const wstring& str, wchar_t ch)
 {
     wstring workStr = str;
     workStr.erase(std::remove(workStr.begin(), workStr.end(), ch), workStr.end());
@@ -200,6 +223,11 @@ void StringUtility::RemoveAllCharDirectly(string& str, char ch)
     // std::remove : Transforms the range [first,last) into a range with all the elements
     //               that compare equal to val removed, and returns an iterator to the new end of that range.
 
+    str.erase(std::remove(str.begin(), str.end(), ch), str.end());
+}
+
+void StringUtility::RemoveAllCharDirectly(wstring& str, wchar_t ch)
+{
     str.erase(std::remove(str.begin(), str.end(), ch), str.end());
 }
 

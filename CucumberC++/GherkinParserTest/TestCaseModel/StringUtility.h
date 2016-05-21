@@ -9,37 +9,42 @@
 #include "GeneralMacro.h"
 //#include "NString.h"
 
+using namespace std;
+
 class StringUtility
 {
 public:
-    static void Split(std::vector<std::wstring>& tokens, const std::wstring& wstr);
-    static std::wstring Trim(const std::wstring& str);
+    static void Split(vector<wstring>& tokens, const wstring& wstr);
+    static vector<string> Split(const string &str, char delimiter);
+    static vector<wstring> Split(const wstring &str, wchar_t delimiter);
 
-    static std::string wstring2string(const std::wstring& wstr);
-    static std::wstring string2wstring(const std::string& str);
-    static NString wstring2NString(const std::wstring& wstr);
+    static wstring Trim(const wstring& str);
+
+    static string wstring2string(const wstring& wstr);
+	static string wstring2string2(const wstring& wstr);
+	static wstring string2wstring(const string& str);
+	static NString wstring2NString(const wstring& wstr);
 
 	static bool IsDigit(char ch);
-    static bool IsNumber(const std::string& str);
-    static int stoi(const std::wstring& wstr);
-    static long stol(const std::wstring& wstr);
-    static double stod(const std::wstring& wstr);
+	static bool IsNumber(const string& str);
+    static int stoi(const wstring& wstr);
+    static int stoi(const string& str);
+    static long stol(const wstring& wstr);
+    static long stol(const string& str);
+    static double stod(const wstring& wstr);
 
-    static std::wstring RemoveAllChar(const std::wstring& str, char ch);
-    static std::string RemoveAllChar(const std::string& str, char ch);
-    static std::string int2hex(int value);
-    static int convertToBinary(const std::wstring& str, char* buffer, size_t buffer_size);
-
-private:
-    static int stoi(const std::string& str);
-    static long stol(const std::string& str);
+    static wstring RemoveAllChar(const wstring& str, wchar_t ch);
+    static string RemoveAllChar(const string& str, char ch);
+    static string int2hex(int value);
+    static int convertToBinary(const wstring& str, char* buffer, size_t buffer_size);
 
 private:
-    static std::wstring FilterQuotations(const std::wstring& wstr);
-    static std::wstring RemoveAllComma(const std::wstring& wstr){ return RemoveAllChar(wstr, ','); }
-    static std::string RemoveAllComma(const std::string& str){ return RemoveAllChar(str, ','); }
-    static void RemoveAllCharDirectly(std::string& str, char ch);
-    static bool IsValidStartOfNumber(const std::string& str);
+    static wstring FilterQuotations(const wstring& wstr);
+    static string RemoveAllComma(const string& str){ return RemoveAllChar(str, ','); }
+    static wstring RemoveAllComma(const wstring& str){ return RemoveAllChar(str, L','); }
+    static void RemoveAllCharDirectly(string& str, char ch);
+    static void RemoveAllCharDirectly(wstring& str, wchar_t ch);
+    static bool IsValidStartOfNumber(const string& str);
     static char char2octet(wchar_t ch);
 };
 

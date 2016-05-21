@@ -33,15 +33,17 @@ public:
     static long stol(const string& str);
     static double stod(const wstring& wstr);
 
-	static wstring RemoveAllChar(const wstring& str, char ch);
+    static wstring RemoveAllChar(const wstring& str, wchar_t ch);
     static string RemoveAllChar(const string& str, char ch);
     static string int2hex(int value);
     static int convertToBinary(const wstring& str, char* buffer, size_t buffer_size);
 
 private:
     static wstring FilterQuotations(const wstring& wstr);
-	static void RemoveAllComma(string& str){ RemoveAllCharDirectly(str, ','); }
+    static string RemoveAllComma(const string& str){ return RemoveAllChar(str, ','); }
+    static wstring RemoveAllComma(const wstring& str){ return RemoveAllChar(str, L','); }
     static void RemoveAllCharDirectly(string& str, char ch);
+    static void RemoveAllCharDirectly(wstring& str, wchar_t ch);
     static bool IsValidStartOfNumber(const string& str);
     static char char2octet(wchar_t ch);
 };

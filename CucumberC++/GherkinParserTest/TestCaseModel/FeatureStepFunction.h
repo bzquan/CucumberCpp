@@ -24,21 +24,21 @@ namespace bdd
 	template <> class StepArgTypeClass<long>
 	{
 	public:
-        static long GetArg(StepArg arg) { return arg.longValue(); }
+		static long GetArg(StepArg& arg) { return arg.longValue(); }
 	};
 	template <> class StepArgTypeClass<double>
 	{
 	public:
-        static double GetArg(StepArg arg) { return arg.doubleValue(); }
+		static double GetArg(StepArg& arg) { return arg.doubleValue(); }
 	};
 	template <> class StepArgTypeClass<wstring>
 	{
 	public:
-        static wstring GetArg(StepArg arg) { return arg.wstrValue(); }
+		static wstring GetArg(StepArg& arg) { return arg.wstrValue(); }
 	};
 
 	template<typename T>
-    T GetArg(StepArg arg)
+	T GetArg(StepArg& arg)
 	{
 		return StepArgTypeClass<T>::GetArg(arg);
 	}

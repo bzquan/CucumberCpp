@@ -313,7 +313,31 @@ TEST_F(yylexTest, DocString)
     ASSERT_EQ(DOC_STRING, token);
     wstring expected{
         L"Doc string1\n"
-        L"Doc string2"
+        L" Doc string2"
+    };
+    ASSERT_EQ(expected, yylval.pDocStringParam->content);
+    delete yylval.pDocStringParam;
+}
+
+TEST_F(yylexTest, DocString_with_quotation)
+{
+    // Given
+    wistringstream is{
+        L"\"\"\"\n"
+        L"Doc \"string1\"\n"
+        L" Doc \"string2\" \n"
+        L"\"\"\"\n"
+    };
+    GherkinLexer lexer(is, parser);
+
+    // When
+    yytokentype token = (yytokentype)yylex();
+
+    // Then
+    ASSERT_EQ(DOC_STRING, token);
+    wstring expected{
+        L"Doc \"string1\"\n"
+        L" Doc \"string2\""
     };
     ASSERT_EQ(expected, yylval.pDocStringParam->content);
     delete yylval.pDocStringParam;
@@ -337,7 +361,7 @@ TEST_F(yylexTest, DocString_with_type)
     ASSERT_EQ(DOC_STRING, token);
     wstring expected{
         L"Doc string1\n"
-        L"Doc string2"
+        L" Doc string2"
     };
     ASSERT_EQ(expected, yylval.pDocStringParam->content);
     ASSERT_EQ(wstring(L"jason"), yylval.pDocStringParam->contentType);

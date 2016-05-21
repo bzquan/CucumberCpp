@@ -9,7 +9,7 @@ class StringCalculator
 {
 public:
     StringCalculator(IDisplay* pDisplay = nullptr) : m_pDisplay(pDisplay) {}
-    void Input(const std::string input) { m_inputString = input; }
+    void Input(const std::string& input) { m_inputString = input; }
     int CalculateSum();
 
 private:

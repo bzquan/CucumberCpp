@@ -1,14 +1,13 @@
 ﻿#pragma once
 
-#if (_MSC_VER < 1900)   // _MSC_VER == 1900 (Visual Studio 2015, MSVC++ 14.0)
-#include <boost/function.hpp>
-#include <boost/bind.hpp>
-using namespace boost;
-
+#if defined(WIN32) && (_MSC_VER < 1900)
+    // _MSC_VER == 1900 (Visual Studio 2015, MSVC++ 14.0)
+	#include <boost/function.hpp>
+	#include <boost/bind.hpp>
+	using namespace boost;
 #else
-#include <functional>
-using namespace std::placeholders;
-
+	#include <functional>
+	using namespace std::placeholders;
 #endif
 
 #include <map>
@@ -48,7 +47,8 @@ namespace bdd
 	{
 		friend class FeatureStepTest;
 	public:
-		virtual void Execute() = 0;
+        virtual ~StepFunction(){}
+        virtual void Execute() = 0;
 
 		virtual void SetArg(GherkinTable&) {}
 		virtual void SetArg(GherkinRow&) {}
