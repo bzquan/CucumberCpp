@@ -8,10 +8,13 @@ using namespace CucumberCpp;
 const std::wstring BDDStepArg::TableArg{ L"$table$" };
 const std::wstring BDDStepArg::DocStringArg{ L"$doc$" };
 
-BDDStepArg::BDDStepArg(wstring arg)
+BDDStepArg::BDDStepArg(wstring arg) :
+	ArgIndex(0),
+	m_RegexPattern(BDDUtil::StringRegex), // default is a string argument
+	m_ArgText(arg)
 {
-    m_RegexPattern = BDDUtil::StringRegex; // default is a string argument
-    m_ArgText = arg;
+//    m_RegexPattern = BDDUtil::StringRegex; // default is a string argument
+//    m_ArgText = arg;
     DecideArgType(arg);
 }
 

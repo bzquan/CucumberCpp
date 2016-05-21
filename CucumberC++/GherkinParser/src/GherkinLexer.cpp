@@ -43,7 +43,8 @@ Token::Token(yytokentype t, std::wstring v, int currentLineNo, std::wstring vtyp
     token(t),
     lineNo(currentLineNo)
 {
-    yylval = (token != DECRIPTION) ? StrUtility::Trim(v) : v;
+    const bool need_trim = ((token != DECRIPTION) && (token != DOC_STRING));
+    yylval = need_trim ? StrUtility::Trim(v) : v;
     type = StrUtility::Trim(vtype);
 }
 
@@ -166,7 +167,7 @@ Token GherkinLexer::scanDocString(const std::wstring& docStringType)
     while ((line != g_eof) && !isDocStringSeparator(line, dummyDocStringType))
     {
         if (docString.length() > 0) docString.append(NEWLINE);
-        docString.append(StrUtility::Trim(line));
+        docString.append(line);
         line = getLine();
     }
     

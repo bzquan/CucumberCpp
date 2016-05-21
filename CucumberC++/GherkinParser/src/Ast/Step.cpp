@@ -26,10 +26,10 @@ Step::~Step()
 
 Step::Step(const Step& other) :
     IHasLocation(other),
-    m_pStepArgument(nullptr)
+    m_pStepArgument(nullptr),
+    m_Keyword(other.m_Keyword),
+    m_Text(other.m_Text)
 {
-    m_Keyword = other.m_Keyword;
-    m_Text = other.m_Text;
     if (other.StepArgument() != nullptr)
     {
         m_pStepArgument = other.StepArgument()->copy();

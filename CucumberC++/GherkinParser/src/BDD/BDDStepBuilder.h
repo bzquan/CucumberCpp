@@ -43,7 +43,7 @@ namespace CucumberCpp
         bool HasTypeTemplateArg();
         void BuildTableArg(const std::wstring& indent, std::wstring& stepOfScenario);
         void BuildDocStringArg(const std::wstring& indent, std::wstring& stepOfScenario);
-        std::wstring BuildMultiLineStringConstant(const std::wstring& indent);
+        std::wstring BuildDocString(const std::wstring& indent);
         void BuildStepStatement(const std::wstring& indent, std::wstring& stepOfScenario);
         std::wstring MakeArgPalceHoder();
         std::wstring MakeStepRegex();

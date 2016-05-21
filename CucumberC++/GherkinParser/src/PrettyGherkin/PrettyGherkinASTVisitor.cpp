@@ -151,7 +151,6 @@ void PrettyGherkinASTVisitor::Accept(DocString& docString)
     for (wstring& line : lines)
     {
         m_pPrettyGherkin
-            .append(STEPARG_INDENT)
             .append(line)
             .appendLine();
     }

@@ -196,36 +196,34 @@ void BDDStepBuilder::BuildDocStringArg(const wstring& indent, wstring& stepOfSce
         stepOfScenario
             .append(BDDUtil::NEW_LINE)
             .append(varDef)
-            .append(BuildMultiLineStringConstant(indentAfterVar));
+            .append(BuildDocString(indentAfterVar));
     }
 }
 
-wstring BDDStepBuilder::BuildMultiLineStringConstant(const wstring& indent)
+wstring BDDStepBuilder::BuildDocString(const wstring& indent)
 {
-    wstring multiLineString;
+    wstring docString;
     wstring docStringContent = m_pDocStringArg->Content();
+    StrUtility::ReplaceAll(docStringContent, L"\"", L"\\\"");
 
-    vector<wstring> docStrings = StrUtility::Split(docStringContent, L'\n');
-    for (size_t i = 0; i < docStrings.size(); i++)
+    vector<wstring> docStringLines = StrUtility::Split(docStringContent, L'\n');
+    for (size_t i = 0; i < docStringLines.size(); i++)
     {
-        if (i > 0) multiLineString.append(indent);
+        if (i > 0) docString.append(indent);
 
-        multiLineString.append(wstring(L"L\"") + docStrings[i] + L"\"");
-        if (i < docStrings.size() - 1)
+        docString.append(wstring(L"L\"") + docStringLines[i]);
+        if (i < docStringLines.size() - 1)
         {
-            multiLineString
-                .append(BDDUtil::NEW_LINE)
-                .append(indent)
-                .append(L"L\"\\n\"")
+            docString
+                .append(L"\\n\"")
                 .append(BDDUtil::NEW_LINE);
         }
-        else
-            multiLineString
-            .append(L";")
-            .append(BDDUtil::NEW_LINE);
     }
+    docString
+      .append(L"\";")
+      .append(BDDUtil::NEW_LINE);
 
-    return multiLineString;
+    return docString;
 }
 
 void BDDStepBuilder::BuildStepStatement(const wstring& indent, wstring& stepOfScenario)

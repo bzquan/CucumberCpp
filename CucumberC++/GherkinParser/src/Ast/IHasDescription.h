@@ -8,9 +8,9 @@ namespace GherkinAst
     {
     public:
         IHasDescription(){}
-        IHasDescription(std::wstring keyword, std::wstring* pTitle, std::wstring* pDesc)
+        IHasDescription(std::wstring keyword, std::wstring* pTitle, std::wstring* pDesc) : 
+            m_Keyword(keyword)
         {
-            m_Keyword = keyword;
             if (pTitle != nullptr) m_Title = *pTitle;
             if (pDesc != nullptr) m_Description = *pDesc;
 

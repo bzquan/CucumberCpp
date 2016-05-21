@@ -32,7 +32,7 @@ std::wstring BDDGherkinTableBuilder::AppendGherkinTableDefinition(std::wstring& 
 {
     std::wstring tableDef;
     tableDef
-        .append(indent + L"GherkinTable " + tableVariableName + L" = GherkinTable(")
+        .append(indent + L"GherkinTable " + tableVariableName + L"(")
         .append(BDDUtil::NEW_LINE);
 
     return tableDef;

@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include "Definitions.h"
 #include "StrUtility.h"
 
@@ -86,10 +86,10 @@ GherkinAst::DataTable* AstBuilder::BuildDataTable(TableParam* pTableParam)
         pArg = BuildDataTable(pTableParam->rowParams);
         delete pTableParam;
     }
-    catch (GherkinError& ex)
+    catch (GherkinError&)
     {
         delete pTableParam;
-        throw ex;
+        throw;
     }
 
     return pArg;

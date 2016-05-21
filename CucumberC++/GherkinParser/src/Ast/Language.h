@@ -9,7 +9,7 @@ namespace GherkinAst
     {
     public:
         Language(){}
-        Language(std::wstring& language) { m_Value = language; }
+        Language(std::wstring& language) : m_Value(language) { }
 
         bool IsValid() { return (m_Value.size() == 2); }
         std::wstring& Value() { return m_Value; }
