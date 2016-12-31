@@ -557,9 +557,11 @@ void MainWindow::createCompileToolBar()
     compileToolBar->addAction(prettyGherkinAction);
     compileToolBar->addAction(genTestCodeAction);
 
-    supportUnicodeAction = compileToolBar->addAction(QIcon(":/w.ico"), tr("Support unicode"), this, SLOT(supportUnicode()));
-    supportUnicodeAction->setCheckable(true);
-    supportUnicodeAction->setChecked(m_supportUnicode);
+    QCheckBox* supportUnicodeCheckBox = new QCheckBox(tr("Unicode"), this);
+    supportUnicodeCheckBox->setToolTip(tr("Support unicode directly"));
+    supportUnicodeCheckBox->setChecked(m_supportUnicode);
+    connect(supportUnicodeCheckBox, SIGNAL(clicked(bool)), this, SLOT(supportUnicode(bool)));
+    compileToolBar->addWidget(supportUnicodeCheckBox);
 }
 
 void MainWindow::createViewToolBar()
@@ -571,9 +573,9 @@ void MainWindow::createViewToolBar()
     viewToolBar->addAction(hideCompileInfoAction);
 }
 
-void MainWindow::supportUnicode()
+void MainWindow::supportUnicode(bool checked)
 {
-    m_supportUnicode = supportUnicodeAction->isChecked();
+    m_supportUnicode = checked;
     UserSetting::supportUnicode(m_supportUnicode);
     CucumberCpp::BDDUtil::supportUnicode(m_supportUnicode);
 }

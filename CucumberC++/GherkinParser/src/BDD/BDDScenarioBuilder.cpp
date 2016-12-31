@@ -23,6 +23,7 @@
 #include "Scenario.h"
 #include "BDDUtil.h"
 #include "BDDStepBuilder.h"
+#include "BDDFeatureBuilderContext.h"
 #include "BDDScenarioBuilder.h"
 
 using namespace std;
@@ -36,16 +37,12 @@ BDDScenarioBuilder::BDDScenarioBuilder(Scenario& scenario) :
 
 wstring BDDScenarioBuilder::BuildScenarioImpl()
 {
-    wstring scenarioImpl;
+    BDDFeatureBuilderContext context;
+    context.AppendName(ScenarioName());
 
-    if (!BDDUtil::supportUnicode())
-    {
-        scenarioImpl
-            .append(wstring(L"// TEST_F(") + FeatureClassName() + L", " + ScenarioName() + L")")
-            .append(BDDUtil::NEW_LINE);
-    }
+    wstring scenarioImpl;
     scenarioImpl
-        .append(wstring(L"TEST_F(") + BDDUtil::to_ident(FeatureClassName()) + L", " + BDDUtil::to_ident(ScenarioName()) + L")\n")
+        .append(wstring(L"TEST_FF(") + FeatureClassName() + L", " + ScenarioName() + L")\n")
         .append(L"{\n")
         .append(BDDUtil::INDENT + BuildGUIDTag())
         .append(BDDUtil::NEW_LINE)

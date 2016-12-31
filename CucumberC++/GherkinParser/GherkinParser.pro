@@ -59,7 +59,9 @@ SOURCES += \
     src/PrettyGherkin/PrettyTableRowFormatter.cpp \
     src/util/guid.cpp \
     src/util/StrUtility.cpp \
-    src/Ast/IHasSteps.cpp
+    src/Ast/IHasSteps.cpp \
+    src/BDD/BDDFeatureBuilderContext.cpp \
+    src/BDD/BDDUnicodeNameDefinitions.cpp
 
 HEADERS += \
     src/AstBuilder.h \
@@ -121,7 +123,9 @@ HEADERS += \
     src/PrettyGherkin/PrettyTableRow.h \
     src/PrettyGherkin/PrettyTableRowFormatter.h \
     src/util/guid.h \
-    src/util/StrUtility.h
+    src/util/StrUtility.h \
+    src/BDD/BDDFeatureBuilderContext.h \
+    src/BDD/BDDUnicodeNameDefinitions.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

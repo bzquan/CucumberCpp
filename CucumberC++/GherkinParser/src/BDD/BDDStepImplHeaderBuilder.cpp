@@ -30,18 +30,24 @@ using namespace CucumberCpp;
 
 wstring BDDStepImplHeaderBuilder::BuildStepImplHeader()
 {
-    wstring stepImplHeader;
+    wstring include = BuildIncludes();
+    wstring classBeginning = BuildClassBeginning();
+    wstring stepDefs = BuildStepDefs();
+    wstring registerSteps = BuildRegisterSteps();
+    wstring classEnding = BuildClassEnding();
 
+    wstring stepImplHeader;
     stepImplHeader
-        .append(BuildIncludes())
+        .append(include)
         .append(BDDUtil::NEW_LINE)
-        .append(BuildClassBeginning())
+        .append(BDDStepImplBuilderContext::GetUnicodeNameDefines())
+        .append(classBeginning)
         .append(BDDUtil::NEW_LINE)
-        .append(BuildStepDefs())
+        .append(stepDefs)
         .append(BDDUtil::NEW_LINE)
-        .append(BuildRegisterSteps())
+        .append(registerSteps)
         .append(BDDUtil::NEW_LINE)
-        .append(BuildClassEnding())
+        .append(classEnding)
         .append(BDDUtil::NEW_LINE);
 
     return stepImplHeader;
@@ -68,9 +74,12 @@ wstring BDDStepImplHeaderBuilder::BuildIncludes()
 
 wstring BDDStepImplHeaderBuilder::BuildClassBeginning()
 {
+    wstring stepClassName = BDDStepImplBuilderContext::StepImplClassName();
+    BDDStepImplBuilderContext::AppendName(stepClassName);
+
     wstring beginning;
     beginning
-        .append(wstring(L"class ") + BDDStepImplBuilderContext::StepImplClassName() + L" : public AbstractStepModel\n")
+        .append(wstring(L"class ") + stepClassName + L" : public AbstractStepModel\n")
         .append(L"{\n")
         .append(L"public:\n")
         .append(BDDUtil::INDENT + L"void SetUp()\n")

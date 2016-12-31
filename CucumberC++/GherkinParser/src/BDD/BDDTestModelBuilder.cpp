@@ -22,6 +22,7 @@
 
 #include "BDDUtil.h"
 #include "BDDStepImplBuilderContext.h"
+#include "BDDUnicodeNameDefinitions.h"
 #include "BDDTestModelBuilder.h"
 
 using namespace std;
@@ -29,6 +30,9 @@ using namespace CucumberCpp;
 
 wstring BDDStepModelTemplateBuilder::BuildTestModelHeader()
 {
+    BDDUnicodeNameDefinitions nameDefinition;
+    nameDefinition.Append(BDDStepImplBuilderContext::FeatureTestModelName());
+
     wstring stepModelTemplate;
     stepModelTemplate
         .append(L"#pragma once\n")
@@ -37,9 +41,9 @@ wstring BDDStepModelTemplateBuilder::BuildTestModelHeader()
         .append(L"#include \"gmock/gmock.h\"\n")
         .append(L"#include \"AbstractTestModel.h\"\n")
         .append(BDDUtil::NEW_LINE)
-        .append(wstring(L"//") + BDDStepImplBuilderContext::FeatureTestModelName())
+        .append(nameDefinition.GetDefines())
         .append(BDDUtil::NEW_LINE)
-        .append(wstring(L"class ") + BDDUtil::to_ident(BDDStepImplBuilderContext::FeatureTestModelName()) + L" : public AbstractTestModel\n")
+        .append(wstring(L"class ") + BDDStepImplBuilderContext::FeatureTestModelName() + L" : public AbstractTestModel\n")
         .append(L"{\n")
         .append(L"public:\n")
         .append(BDDUtil::INDENT + L"void SetUp();\n")
@@ -57,7 +61,7 @@ wstring BDDStepModelTemplateBuilder::BuildTestModelImplementation()
         .append(wstring(L"#include \"gmock/gmock.h\"\n"))
         .append(wstring(L"#include \"gtest/gtest.h\"\n"))
         .append(BDDUtil::NEW_LINE)
-        .append(wstring(L"#include \"") + BDDUtil::to_ident(BDDStepImplBuilderContext::FeatureTestModelName()) + L".h\"\n")
+        .append(wstring(L"#include \"") + BDDStepImplBuilderContext::FeatureTestModelName() + L".h\"\n")
         .append(BDDUtil::NEW_LINE)
         .append(L"using namespace ::testing;\n")
         .append(BDDUtil::NEW_LINE)

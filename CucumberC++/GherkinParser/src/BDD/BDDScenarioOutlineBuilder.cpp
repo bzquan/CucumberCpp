@@ -25,6 +25,7 @@
 #include "BDDUtil.h"
 #include "BDDInstantiatedTestClassBuilder.h"
 #include "BDDStepBuilder.h"
+#include "BDDFeatureBuilderContext.h"
 #include "BDDScenarioOutlineBuilder.h"
 
 using namespace std;
@@ -56,16 +57,13 @@ wstring BDDScenarioOutlineBuilder::ScenarioOutlineClassName()
 
 wstring BDDScenarioOutlineBuilder::BuildParameterizedTestClass()
 {
+    BDDFeatureBuilderContext context;
+    context.AppendName(ScenarioOutlineClassName());
+
     wstring scenarioOutlineClass;
-    if (!BDDUtil::supportUnicode())
-    {
-        scenarioOutlineClass
-            .append(wstring(L"// ") + ScenarioOutlineClassName() + L" : " + FeatureClassName())
-            .append(BDDUtil::NEW_LINE);
-    }
     scenarioOutlineClass
-        .append(wstring(L"class ") + BDDUtil::to_ident(ScenarioOutlineClassName()) + L" :\n")
-        .append(BDDUtil::INDENT + L"public " + BDDUtil::to_ident(FeatureClassName()) + L",\n")
+        .append(wstring(L"class ") + ScenarioOutlineClassName() + L" :\n")
+        .append(BDDUtil::INDENT + L"public " + FeatureClassName() + L",\n")
         .append(BDDUtil::INDENT + L"public WithParamInterface<GherkinRow>\n")
         .append(L"{\n")
         .append(L"public:\n")
@@ -78,14 +76,8 @@ wstring BDDScenarioOutlineBuilder::BuildParameterizedTestClass()
 wstring BDDScenarioOutlineBuilder::BuildTestBody()
 {
     wstring scenarioOutlineTestBody;
-    if (!BDDUtil::supportUnicode())
-    {
-        scenarioOutlineTestBody
-            .append(wstring(L"// TEST_P(") + ScenarioOutlineClassName() + L", ScenarioOutline)\n");
-    }
-
     scenarioOutlineTestBody
-        .append(wstring(L"TEST_P(") + BDDUtil::to_ident(ScenarioOutlineClassName()) + L", ScenarioOutline)\n")
+        .append(wstring(L"TEST_PP(") + ScenarioOutlineClassName() + L", ScenarioOutline)\n")
         .append(L"{\n")
         .append(BDDUtil::INDENT + L"GherkinRow param = GetParam();\n")
         .append(BDDUtil::NEW_LINE)
@@ -114,15 +106,8 @@ wstring BDDScenarioOutlineBuilder::BuildSetupFunction()
     wstring setupFunction;
     setupFunction
         .append(BDDUtil::INDENT + L"void SetUp() override\n")
-        .append(BDDUtil::INDENT + L"{\n");
-    if (!BDDUtil::supportUnicode())
-    {
-        setupFunction
-            .append(wstring(L"// ") + BDDUtil::INDENT_DOUBLE + FeatureClassName() + L"::SetUp();\n");
-    }
-
-    setupFunction
-        .append(BDDUtil::INDENT_DOUBLE + BDDUtil::to_ident(FeatureClassName()) + L"::SetUp();\n")
+        .append(BDDUtil::INDENT + L"{\n")
+        .append(BDDUtil::INDENT_DOUBLE + FeatureClassName() + L"::SetUp();\n")
         .append(BDDUtil::INDENT_DOUBLE + BuildGUIDTag())
         .append(BDDUtil::NEW_LINE)
         .append(BDDUtil::INDENT + L"}\n");

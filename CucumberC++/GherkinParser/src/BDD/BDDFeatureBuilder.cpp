@@ -26,6 +26,7 @@
 #include "BDDScenarioBuilder.h"
 #include "BDDScenarioOutlineBuilder.h"
 #include "BDDStepBuilder.h"
+#include "BDDFeatureBuilderContext.h"
 #include "BDDFeatureBuilder.h"
 
 using namespace std;
@@ -49,15 +50,22 @@ wstring BDDFeatureBuilder::FeatureFileName()
 
 wstring BDDFeatureBuilder::Build()
 {
+    BDDFeatureBuilderContext context;
+    context.Clear();
+
+    wstring featureTestClass = BuildFeatureTestClass();
+    wstring scenarioes = BuildScenarioes();
+
     m_featureImpl.clear();
     m_featureImpl
         .append(DisableWarning_C4819())
         .append(BDDUtil::NEW_LINE)
         .append(BuildIncludes())
         .append(BDDUtil::NEW_LINE)
-        .append(BuildFeatureTestClass())
+        .append(context.GetUnicodeNameDefines())
+        .append(featureTestClass)
         .append(BDDUtil::NEW_LINE)
-        .append(BuildScenarioes())
+        .append(scenarioes)
         .append(BDDUtil::NEW_LINE);
 
 
@@ -133,11 +141,13 @@ wstring BDDFeatureBuilder::BuildIncludes()
 
 wstring BDDFeatureBuilder::BuildFeatureTestClass()
 {
+    BDDFeatureBuilderContext context;
+    context.AppendName(FeatureClassName());
+
     wstring testClass;
     testClass
-        .append(wstring(L"// ") + FeatureClassName() + L"\n")
         .append(BDDUtil::NEW_LINE)
-        .append(wstring(L"class ") + BDDUtil::to_ident(FeatureClassName()) + L" : public FeatureTestModel\n")
+        .append(wstring(L"class ") + FeatureClassName() + L" : public FeatureTestModel\n")
         .append(L"{\n")
         .append(BuildSetupAndTearDown())
         .append(BDDUtil::NEW_LINE)
@@ -207,16 +217,8 @@ wstring BDDFeatureBuilder::BuildStepMemberVar()
 {
     wstring stepMemberVar;
     stepMemberVar
-        .append(L"private:\n");
-    if (!BDDUtil::supportUnicode())
-    {
-        stepMemberVar
-            .append(BDDUtil::INDENT + L"// " + m_StepClassName + L" steps;")
-            .append(BDDUtil::NEW_LINE);
-    }
-
-    stepMemberVar
-        .append(BDDUtil::INDENT + BDDUtil::to_ident(m_StepClassName) + L" steps;");
+        .append(L"private:\n")
+        .append(BDDUtil::INDENT + m_StepClassName + L" steps;");
 
     return stepMemberVar;
 }

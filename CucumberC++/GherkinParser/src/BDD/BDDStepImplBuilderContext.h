@@ -26,6 +26,7 @@
 #include <string>
 
 #include "Step.h"
+#include "BDDUnicodeNameDefinitions.h"
 
 namespace CucumberCpp
 {
@@ -47,6 +48,8 @@ namespace CucumberCpp
         static std::wstring FeatureTestModelName();
         static BDDStepBuilder* CreateNewStepBuilder(GherkinAst::Step& step);
         static std::vector<BDDStepBuilder*>& NonDuplicateStepBuilders();
+        static void AppendName(std::wstring name);
+        static std::wstring GetUnicodeNameDefines();
 
     private:
         static void MakeNonDuplicateStepBuilders();
@@ -57,5 +60,6 @@ namespace CucumberCpp
         static std::vector<BDDStepBuilder*> s_StepBuilderList;
         static std::vector<BDDStepBuilder*> s_NonDuplicateStepBuilderList;
         static std::wstring s_FeatureTitle;
+        static BDDUnicodeNameDefinitions s_UnicodeNameDefinitions;
     };
 }

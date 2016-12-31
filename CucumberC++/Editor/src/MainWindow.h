@@ -64,7 +64,7 @@ public slots:
 
     void prettyGherkin();
     void genExecutableSpec();
-    void supportUnicode();
+    void supportUnicode(bool checked);
 
     void undo();
     void onUndoAvailable(bool available);

@@ -25,6 +25,7 @@
 #include "BDDUtil.h"
 #include "StrUtility.h"
 #include "BDDGherkinTableBuilder.h"
+#include "BDDStepImplBuilderContext.h"
 #include "BDDStepBuilder.h"
 
 using namespace std;
@@ -69,14 +70,9 @@ wstring BDDStepBuilder::BuildStepHeader()
 {
     MakeStepFunction();
     wstring stepHeader;
-    if (!BDDUtil::supportUnicode())
-    {
-        stepHeader
-           .append(BDDUtil::INDENT_DOUBLE + L"// " + m_StepFunctionName)
-           .append(BDDUtil::NEW_LINE);
-    }
+    BDDStepImplBuilderContext::AppendName(m_StepFunctionName);
     stepHeader
-        .append(BDDUtil::INDENT + L"void " + BDDUtil::to_ident(m_StepFunctionName) + L"(" + BuildStepFormalArg(true) + L");");
+        .append(BDDUtil::INDENT + L"void " + m_StepFunctionName + L"(" + BuildStepFormalArg(true) + L");");
 
     return stepHeader;
 }
@@ -85,15 +81,8 @@ wstring BDDStepBuilder::BuildStepImp()
 {
     MakeStepFunction();
     wstring stepImp;
-    if (!BDDUtil::supportUnicode())
-    {
-        stepImp
-            .append(wstring(L"//-- ") + m_StepDefClassName + L"::" + m_StepFunctionName + L"(" + BuildStepFormalArg(false) + L")")
-            .append(BDDUtil::NEW_LINE);
-    }
-
     stepImp
-        .append(wstring(L"void ") + BDDUtil::to_ident(m_StepDefClassName) + L"::" + BDDUtil::to_ident(m_StepFunctionName) + L"(" + BuildStepFormalArg(false) + L")")
+        .append(wstring(L"void ") + m_StepDefClassName + L"::" + m_StepFunctionName + L"(" + BuildStepFormalArg(false) + L")")
         .append(BDDUtil::NEW_LINE)
         .append(L"{")
         .append(BDDUtil::NEW_LINE)
@@ -124,7 +113,7 @@ wstring BDDStepBuilder::BuildStepBind()
         .append(BDDUtil::NEW_LINE)
         .append(BDDUtil::INDENT_TRIPLE)
         .append(L"(bind(&")
-        .append(BDDUtil::to_ident(m_StepDefClassName) + L"::" + BDDUtil::to_ident(m_StepFunctionName))
+        .append(m_StepDefClassName + L"::" + m_StepFunctionName)
         .append(L", this")
         .append(MakeArgPalceHoder())
         .append(L")));");

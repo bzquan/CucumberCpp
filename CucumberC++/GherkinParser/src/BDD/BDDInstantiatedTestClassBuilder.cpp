@@ -24,6 +24,7 @@
 #include "TableRow.h"
 #include "BDDUtil.h"
 #include "BDDGherkinTableBuilder.h"
+#include "BDDFeatureBuilderContext.h"
 #include "BDDInstantiatedTestClassBuilder.h"
 
 using namespace std;
@@ -38,15 +39,21 @@ void BDDInstantiatedTestClassBuilder::StartToBuild(wstring featureClassName, wst
 
 wstring BDDInstantiatedTestClassBuilder::Build(Example& example)
 {
+    BDDFeatureBuilderContext context;
+
     wstring instantiationName = m_FeatureClassName + L"_" + std::to_wstring(m_InstanceNo);
+    context.AppendName(instantiationName);
+
     m_InstanceNo++;
 
     wstring exampleTableName;
     exampleTableName
-        .append(BDDUtil::to_ident(m_ScenarioOutlineClassName))
+        .append(m_ScenarioOutlineClassName)
         .append(L"_")
         .append(std::to_wstring(m_InstanceNo))
         .append(L"_ExampleTable");
+
+    context.AppendName(exampleTableName);
 
     wstring instantiatedTestClass;
     instantiatedTestClass
@@ -60,30 +67,13 @@ wstring BDDInstantiatedTestClassBuilder::Build(Example& example)
 std::wstring BDDInstantiatedTestClassBuilder::InstantiatedTestClass(std::wstring instantiationName, std::wstring exampleTableName)
 {
     wstring instantiatedTestClass;
-
-    if (!BDDUtil::supportUnicode())
-    {
-        instantiatedTestClass
-            .append(wstring(L"// ") + instantiationName)
-            .append(BDDUtil::NEW_LINE);
-    }
-
     instantiatedTestClass
-        .append(L"INSTANTIATE_TEST_CASE_P(\n")
+        .append(L"INSTANTIATE_TEST_CASE_PP(\n")
         .append(BDDUtil::INDENT_DOUBLE)
-        .append(BDDUtil::to_ident(instantiationName))
-        .append(L",\n");
-
-    if (!BDDUtil::supportUnicode())
-    {
-        instantiatedTestClass
-           .append(wstring(L"// ") + m_ScenarioOutlineClassName)
-           .append(BDDUtil::NEW_LINE);
-    }
-
-    instantiatedTestClass
+        .append(instantiationName)
+        .append(L",\n")
         .append(BDDUtil::INDENT_DOUBLE)
-        .append(BDDUtil::to_ident(m_ScenarioOutlineClassName))
+        .append(m_ScenarioOutlineClassName)
         .append(L",\n")
         .append(BDDUtil::INDENT_DOUBLE)
         .append(L"testing::ValuesIn(")
