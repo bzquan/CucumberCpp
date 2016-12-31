@@ -10,13 +10,6 @@ C++ step implementation is simple and straight forward.
 2. Pretty formatting
 3. Generation of C++ Gherkin implementation skeleton.
 
-# Using precompiled package(Only for Windows)  
-The package includes Qt5.6 supporting DLLs.
-
-1. Uncompress CucumberC++.Windows.7z.You can download CucumberCpp.exe if you have ready installed CucumberC++.Windows package.
-2. Install Microsoft Visual C++ Redistributable Package 2015. You can download it from Microsoft site.
-3. Start CucumberCpp.exe
-
 # Building Cucumber/C++
 1. Install Qt5.6
 2. Setup C++14 compiler, eg. Visual Studio 2015, gcc5.2.
